@@ -70,7 +70,7 @@ namespace kontroll
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
+            GameObjectManager.Update();
 
             base.Update(gameTime);
         }
@@ -83,8 +83,10 @@ namespace kontroll
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
-
+            foreach (GameObject g in GameObjectManager.gameObjects)
+            {
+                g.DrawSprite(spriteBatch);
+            }
             base.Draw(gameTime);
         }
     }
