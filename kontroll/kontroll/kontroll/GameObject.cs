@@ -24,6 +24,8 @@ namespace kontroll
         public float Scale { get; set; }
         public float Depth { get; set; }
 
+        public float Depth { get; set; }
+
         public Color Color { get; set; }
 
         public Texture2D Texture { get; set; }
@@ -40,7 +42,11 @@ namespace kontroll
 
         }
 
+<<<<<<< HEAD
         public virtual void Draw(SpriteBatch spriteBatch)
+=======
+        public void DrawSprite(SpriteBatch spriteBatch)
+>>>>>>> origin/master
         {
             spriteBatch.Draw(Texture, Position, new Rectangle(SpriteCoords.X, SpriteCoords.Y, SpriteSize.X, SpriteSize.Y), Color, Rotation, Orgin, Scale, SpriteEffects.None, Depth);
         }
