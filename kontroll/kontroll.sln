@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kontroll", "kontroll\kontroll\kontroll.csproj", "{93D3E362-D3D6-4920-B1B7-2DFEF6E0B822}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "kontrollContent", "kontroll\kontrollContent\kontrollContent.contentproj", "{F541FD44-A17C-49F7-ACA2-1C82E9730D94}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{93D3E362-D3D6-4920-B1B7-2DFEF6E0B822}.Debug|x86.ActiveCfg = Debug|x86
+		{93D3E362-D3D6-4920-B1B7-2DFEF6E0B822}.Debug|x86.Build.0 = Debug|x86
+		{93D3E362-D3D6-4920-B1B7-2DFEF6E0B822}.Release|x86.ActiveCfg = Release|x86
+		{93D3E362-D3D6-4920-B1B7-2DFEF6E0B822}.Release|x86.Build.0 = Release|x86
+		{F541FD44-A17C-49F7-ACA2-1C82E9730D94}.Debug|x86.ActiveCfg = Debug|x86
+		{F541FD44-A17C-49F7-ACA2-1C82E9730D94}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
