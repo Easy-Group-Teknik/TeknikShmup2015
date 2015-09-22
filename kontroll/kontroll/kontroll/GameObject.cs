@@ -13,7 +13,10 @@ namespace kontroll
         public Vector2 Position { get; set; }
         public Vector2 Orgin { get { return new Vector2(Texture.Width / 2, Texture.Height / 2); } }
 
-        public Rectangle Hitbox { get { return new Rectangle((int)(Position.X - Orgin.X), (int)(Position.Y - Orgin.Y), Texture.Width, Texture.Height); } }
+        public Rectangle Hitbox { get { return new Rectangle((int)(Position.X - Orgin.X), (int)(Position.Y - Orgin.Y), SpriteSize.X, SpriteSize.Y); } }
+
+        public Point SpriteCoords { get; set; }
+        public Point SpriteSize { get; set; }
 
         public float Angle { get; set; }
         public float Speed { get; set; }
@@ -39,7 +42,7 @@ namespace kontroll
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, Position, null, Color, Rotation, Orgin, Scale, SpriteEffects.None, Depth);
+            spriteBatch.Draw(Texture, Position, new Rectangle(SpriteCoords.X, SpriteCoords.Y, SpriteSize.X, SpriteSize.Y), Color, Rotation, Orgin, Scale, SpriteEffects.None, Depth);
         }
     }
 }
