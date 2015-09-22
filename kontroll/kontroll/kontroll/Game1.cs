@@ -85,7 +85,7 @@ namespace kontroll
 
             foreach (GameObject g in GameObjectManager.gameObjects)
             {
-                g.DrawSprite(spriteBatch);
+                g.Draw(spriteBatch);
             }
             base.Draw(gameTime);
         }

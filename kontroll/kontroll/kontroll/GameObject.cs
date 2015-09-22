@@ -9,8 +9,9 @@ namespace kontroll
 {
     abstract class GameObject
     {
+        // Public properties (för jävla många idiot Tom)
         public Vector2 Position { get; set; }
-        public Vector2 Orgin { get; set; }
+        public Vector2 Orgin { get { return new Vector2(Texture.Width / 2, Texture.Height / 2); } }
 
         public Rectangle Hitbox { get { return new Rectangle((int)(Position.X - Orgin.X), (int)(Position.Y - Orgin.Y), SpriteSize.X, SpriteSize.Y); } }
 
@@ -21,19 +22,27 @@ namespace kontroll
         public float Speed { get; set; }
         public float Rotation { get; set; }
         public float Scale { get; set; }
+        public float Depth { get; set; }
 
         public Color Color { get; set; }
 
-        public Texture2D Sprite { get; set; }
+        public Texture2D Texture { get; set; }
 
-        public override void Update()
+        // Constructor(s)
+        public GameObject()
+        {
+            this.Color = Color.White;
+        }
+
+        // Method(s)
+        public virtual void Update()
         {
 
         }
 
-        public override void DrawSprite(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Sprite, Position, new Rectangle(SpriteCoords.X, SpriteCoords.Y, SpriteSize.X, SpriteSize.Y), Color, Rotation, Orgin, Scale, SpriteEffects.None, Depth);
+            spriteBatch.Draw(Texture, Position, new Rectangle(SpriteCoords.X, SpriteCoords.Y, SpriteSize.X, SpriteSize.Y), Color, Rotation, Orgin, Scale, SpriteEffects.None, Depth);
         }
     }
 }
