@@ -13,8 +13,6 @@ namespace kontroll
         public Vector2 Position { get; set; }
         public Vector2 Orgin { get { return new Vector2(Texture.Width / 2, Texture.Height / 2); } }
 
-        public int hej;
-
         public Rectangle Hitbox { get { return new Rectangle((int)(Position.X - Orgin.X), (int)(Position.Y - Orgin.Y), Texture.Width, Texture.Height); } }
 
         public float Angle { get; set; }
