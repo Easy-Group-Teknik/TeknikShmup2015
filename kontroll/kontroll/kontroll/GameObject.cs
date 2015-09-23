@@ -11,7 +11,8 @@ namespace kontroll
     {
         // Public properties (för jävla många idiot Tom)
         public Vector2 Position { get; set; }
-        public Vector2 Orgin { get { return new Vector2(Texture.Width / 2, Texture.Height / 2); } }
+        public Vector2 Orgin { get { return new Vector2(SpriteSize.X / 2, SpriteSize.Y / 2); } }
+        public Vector2 Velocity { get { return new Vector2((float)Math.Cos(Angle) * Speed, (float)Math.Sin(Angle) * Speed); } }
 
         public Rectangle Hitbox { get { return new Rectangle((int)(Position.X - Orgin.X), (int)(Position.Y - Orgin.Y), SpriteSize.X, SpriteSize.Y); } }
 
@@ -32,12 +33,18 @@ namespace kontroll
         public GameObject()
         {
             this.Color = Color.White;
+            Scale = 1;
         }
 
         // Method(s)
         public virtual void Update()
         {
 
+        }
+
+        public int Frame(int cell, int size)
+        {
+            return cell * size + 1 + cell;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
