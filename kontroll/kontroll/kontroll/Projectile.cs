@@ -10,11 +10,14 @@ namespace kontroll
     {
         public int Damage { private get; set; }
 
-        public Projectile(Vector2 position, float angle, float speed)
+        public bool enemy;
+
+        public Projectile(Vector2 position, float angle, float speed, bool enemy)
         {
             this.Position = position;
             this.Angle = angle;
             this.Speed = speed;
+            this.enemy = enemy;
 
             Texture = AssetManager.spritesheet;
 

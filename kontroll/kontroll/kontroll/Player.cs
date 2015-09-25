@@ -21,8 +21,7 @@ namespace kontroll
         private Keys rightTrigger = Keys.S;
 
         private int fireRate;
-        private int maxFireRate;
-        private int gunType;
+        private int gunType = 1;
 
         public Player()
             : base()
@@ -59,12 +58,52 @@ namespace kontroll
             {
                 Position += new Vector2(0, Speed);
             }
+
+            if (keyboard.IsKeyDown(fire) && fireRate <= 0)
+            {
+                if (gunType == 0 && prevKeyboard.IsKeyUp(fire))
+                {
+                    GameObjectManager.add(new SimpleProjectile(Position, -(float)Math.PI / 2, Speed + 3, Color.Blue, SimpleProjectile.Pattern.Straight, false));
+                }
+
+                if (gunType == 1 && prevKeyboard.IsKeyUp(fire))
+                {
+                    for (int i = -1; i < 2; i++)
+                    {
+                        float angle = (-90 + i * 25) * (float)Math.PI/180;
+                        GameObjectManager.add(new SimpleProjectile(Position, angle, Speed + 3, Color.Blue, SimpleProjectile.Pattern.Straight, false));
+                    }
+                }
+
+                fireRate = 1;
+            }
         }
 
         public override void Update()
         {
             Input();
+
+            fireRate = (fireRate >= MaxFireRate) ? 0 : fireRate;
+            fireRate = (fireRate >= 1) ? fireRate + 1 : fireRate;
+
             base.Update();
+        }
+
+        public int MaxFireRate 
+        {
+            get
+            {
+                int tmp = 0;
+
+                switch (gunType)
+                {
+                    case 0:
+                        tmp = 16;
+                        break;
+                }
+
+                return tmp;
+            }
         }
     }
 }

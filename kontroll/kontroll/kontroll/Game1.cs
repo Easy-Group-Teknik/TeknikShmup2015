@@ -48,8 +48,6 @@ namespace kontroll
 
             Random random = new Random();
 
-            if(Mouse.GetState().LeftButton == ButtonState.Pressed) GameObjectManager.add(new SimpleProjectile(new Vector2(100, 100), (float)Math.PI/2, 1, new Color(random.Next(255), random.Next(255), random.Next(255)), SimpleProjectile.Pattern.Wave));
-
             base.Update(gameTime);
         }
 
