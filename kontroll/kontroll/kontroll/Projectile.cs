@@ -25,16 +25,14 @@ namespace kontroll
             Color = Color.White;
         }
 
-        public void CheckCollision()
+        public virtual void OnCollision()
         {
-
+            GameObjectManager.remove(this);
         }
 
         public override void Update()
         {
             Position += Velocity;
-
-            CheckCollision();
 
             base.Update();
         }

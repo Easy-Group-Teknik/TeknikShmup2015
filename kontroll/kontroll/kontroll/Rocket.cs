@@ -20,7 +20,7 @@ namespace kontroll
             : base(position, angle, speed, enemy)
         {
             this.decay = decay;
-            SpriteCoords = new Point(Frame(1, 32), Frame(2, 8));
+            SpriteCoords = new Point(Frame(1, 32), 10);
             SpriteSize = new Point(8, 8);
 
             this.type = type;

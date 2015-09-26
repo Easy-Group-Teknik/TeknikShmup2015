@@ -21,7 +21,8 @@ namespace kontroll
         private Keys rightTrigger = Keys.S;
 
         private int fireRate;
-        private int gunType = 1;
+
+        public int GunType { get; set; }
 
         public Player()
             : base()
@@ -32,6 +33,7 @@ namespace kontroll
             Position = new Vector2(100, 100);
 
             Speed = 5;
+            Depth = 0.5f;
         }
 
         public void Input()
@@ -61,18 +63,23 @@ namespace kontroll
 
             if (keyboard.IsKeyDown(fire) && fireRate <= 0)
             {
-                if (gunType == 0 && prevKeyboard.IsKeyUp(fire))
+                if (GunType == 0 && prevKeyboard.IsKeyUp(fire))
                 {
                     GameObjectManager.add(new SimpleProjectile(Position, -(float)Math.PI / 2, Speed + 3, Color.Blue, SimpleProjectile.Pattern.Straight, false));
                 }
 
-                if (gunType == 1 && prevKeyboard.IsKeyUp(fire))
+                if (GunType == 1 && prevKeyboard.IsKeyUp(fire))
                 {
                     for (int i = -1; i < 2; i++)
                     {
                         float angle = (-90 + i * 25) * (float)Math.PI/180;
                         GameObjectManager.add(new SimpleProjectile(Position, angle, Speed + 3, Color.Blue, SimpleProjectile.Pattern.Straight, false));
                     }
+                }
+
+                if (GunType == 2 && prevKeyboard.IsKeyUp(fire))
+                {
+                    GameObjectManager.add(new Rocket(Position, -(float)Math.PI / 2, 0, -0.2f, Rocket.Type.Slowing, Vector2.Zero, false));
                 }
 
                 fireRate = 1;
@@ -95,7 +102,7 @@ namespace kontroll
             {
                 int tmp = 0;
 
-                switch (gunType)
+                switch (GunType)
                 {
                     case 0:
                         tmp = 16;

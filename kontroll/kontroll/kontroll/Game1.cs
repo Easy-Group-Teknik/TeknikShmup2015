@@ -27,6 +27,7 @@ namespace kontroll
             base.Initialize();
             AssetManager.Load(Content);
             GameObjectManager.add(new Player());
+            GameObjectManager.add(new PowerUp(new Vector2(200, 200), 0));
         }
 
         protected override void LoadContent()
