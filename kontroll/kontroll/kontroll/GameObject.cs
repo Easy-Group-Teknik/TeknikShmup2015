@@ -51,5 +51,10 @@ namespace kontroll
         {
             spriteBatch.Draw(Texture, Position, new Rectangle(SpriteCoords.X, SpriteCoords.Y, SpriteSize.X, SpriteSize.Y), Color, Rotation, Orgin, Scale, SpriteEffects.None, Depth);
         }
+
+        public float DistanceTo(Vector2 target)
+        {
+            return (float)Math.Sqrt((Position.X - target.X) * (Position.X - target.X) + (Position.Y - target.Y) * (Position.Y - target.Y));
+        }
     }
 }

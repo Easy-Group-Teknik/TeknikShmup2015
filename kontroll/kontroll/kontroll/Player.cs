@@ -61,6 +61,28 @@ namespace kontroll
                 Position += new Vector2(0, Speed);
             }
 
+            if (keyboard.IsKeyDown(leftTrigger) && prevKeyboard.IsKeyUp(leftTrigger))
+            {
+                foreach (Drone d in GameObjectManager.gameObjects.Where(item => item is Drone))
+                {
+                    if (d.Tag == 1)
+                    {
+                        d.Shoot();
+                    }
+                }
+            }
+
+            if (keyboard.IsKeyDown(rightTrigger) && prevKeyboard.IsKeyUp(rightTrigger))
+            {
+                foreach (Drone d in GameObjectManager.gameObjects.Where(item => item is Drone))
+                {
+                    if (d.Tag == 2)
+                    {
+                        d.Shoot();
+                    }
+                }
+            }
+
             if (keyboard.IsKeyDown(fire) && fireRate <= 0)
             {
                 if (GunType == 0 && prevKeyboard.IsKeyUp(fire))
