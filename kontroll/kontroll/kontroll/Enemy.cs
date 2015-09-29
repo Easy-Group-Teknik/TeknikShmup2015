@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace kontroll
 {
@@ -9,6 +10,9 @@ namespace kontroll
     {
         public int MaxHealth { private get; set; }
         public int Health { get; set; }
+
+        private int hitCount;
+        public int MaxHitCount { private get; set; }
 
         public bool invisible;
 
@@ -44,6 +48,11 @@ namespace kontroll
             {
                 // TODO: add effect eller
                 GameObjectManager.Remove(this);
+            }
+
+            if (hitCount >= 1)
+            {
+                
             }
         }
     }

@@ -65,6 +65,7 @@ namespace kontroll
 
             if (keyboard.IsKeyDown(leftTrigger) && prevKeyboard.IsKeyUp(leftTrigger))
             {
+                Globals.Beep(784, 125);
                 foreach (Drone d in GameObjectManager.gameObjects.Where(item => item is Drone))
                 {
                     if (d.Tag == -1)
