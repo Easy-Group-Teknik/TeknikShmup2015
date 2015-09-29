@@ -27,12 +27,18 @@ namespace kontroll
 
         public virtual void OnCollision()
         {
-            GameObjectManager.remove(this);
+            GameObjectManager.Remove(this);
         }
 
         public override void Update()
         {
             Position += Velocity;
+
+            // Outside screen
+            if (Position.X < 0 || Position.X > 800 || Position.Y < 0 || Position.Y > 480)
+            {
+                GameObjectManager.Remove(this);
+            }
 
             base.Update();
         }

@@ -30,12 +30,12 @@ namespace kontroll
             }
         }
 
-        static public void add(GameObject g)
+        static public void Add(GameObject g)
         {
             gameObjectsToAdd.Add(g);
         }
 
-        static public void remove(GameObject g)
+        static public void Remove(GameObject g)
         {
             gameObjectsToRemove.Add(g);
         }

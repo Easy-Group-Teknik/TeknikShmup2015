@@ -29,6 +29,7 @@ namespace kontroll
             SpriteSize = new Point(24, 24);
 
             Speed = 0.2f;
+            this.Depth = 0.5f;
 
             Texture = AssetManager.spritesheet;
         }
@@ -40,17 +41,17 @@ namespace kontroll
                 switch (gunType)
                 {
                     case 0: 
-                        GameObjectManager.add(new SimpleProjectile(Position, shootAngle, 7, Color.Blue, SimpleProjectile.Pattern.Straight, false));
+                        GameObjectManager.Add(new SimpleProjectile(Position, shootAngle, 7, Color.Blue, SimpleProjectile.Pattern.Straight, false));
                         break;
                     case 1:
                         for (int i = -1; i < 2; i++)
                         {
                             float angle = (Globals.RadianToDegree(shootAngle) + i * 25) * (float)Math.PI / 180;
-                            GameObjectManager.add(new SimpleProjectile(Position, angle, 7, Color.Blue, SimpleProjectile.Pattern.Straight, false));
+                            GameObjectManager.Add(new SimpleProjectile(Position, angle, 7, Color.Blue, SimpleProjectile.Pattern.Straight, false));
                         }
                         break;
                     case 2:
-                        GameObjectManager.add(new Rocket(Position, shootAngle, 0, -0.2f, Rocket.Type.Slowing, Vector2.Zero, false));
+                        GameObjectManager.Add(new Rocket(Position, shootAngle, 0, -0.2f, Rocket.Type.Slowing, Vector2.Zero, false));
                         break;
                 }
                 fireRate = 1;

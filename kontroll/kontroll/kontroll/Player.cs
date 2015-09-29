@@ -30,7 +30,7 @@ namespace kontroll
             Texture = AssetManager.spritesheet;
             SpriteSize = new Point(32, 32);
             SpriteCoords = new Point(1, 1);
-            Position = new Vector2(100, 100);
+            Position = new Vector2(400, 400);
 
             Speed = 5;
             Depth = 0.5f;
@@ -87,7 +87,7 @@ namespace kontroll
             {
                 if (GunType == 0 && prevKeyboard.IsKeyUp(fire))
                 {
-                    GameObjectManager.add(new SimpleProjectile(Position, -(float)Math.PI / 2, Speed + 3, Color.Blue, SimpleProjectile.Pattern.Straight, false));
+                    GameObjectManager.Add(new SimpleProjectile(Position, -(float)Math.PI / 2, Speed + 3, Color.Blue, SimpleProjectile.Pattern.Straight, false));
                 }
 
                 if (GunType == 1 && prevKeyboard.IsKeyUp(fire))
@@ -95,13 +95,13 @@ namespace kontroll
                     for (int i = -1; i < 2; i++)
                     {
                         float angle = (-90 + i * 25) * (float)Math.PI/180;
-                        GameObjectManager.add(new SimpleProjectile(Position, angle, Speed + 3, Color.Blue, SimpleProjectile.Pattern.Straight, false));
+                        GameObjectManager.Add(new SimpleProjectile(Position, angle, Speed + 3, Color.Blue, SimpleProjectile.Pattern.Straight, false));
                     }
                 }
 
                 if (GunType == 2 && prevKeyboard.IsKeyUp(fire))
                 {
-                    GameObjectManager.add(new Rocket(Position, -(float)Math.PI / 2, 0, -0.2f, Rocket.Type.Slowing, Vector2.Zero, false));
+                    GameObjectManager.Add(new Rocket(Position, -(float)Math.PI / 2, 0, -0.2f, Rocket.Type.Slowing, Vector2.Zero, false));
                 }
 
                 fireRate = 1;

@@ -96,6 +96,7 @@
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
@@ -123,6 +124,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Rocket.cs" />
     <Compile Include="SimpleProjectile.cs" />
+    <Compile Include="Star.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

@@ -7,6 +7,10 @@ namespace kontroll
 {
     class Globals
     {
+        private static Random r;
+        public static Random Randomizer { get { if (r == null) r = new Random(); return r; } }
+
+
         public static float DegreesToRadian(float degree)
         {
             return degree * (float)Math.PI / 180;

@@ -40,7 +40,7 @@ namespace kontroll
                 if (p.Hitbox.Intersects(Hitbox))
                 {
                     p.GunType = type + 1;
-                    GameObjectManager.remove(this);
+                    GameObjectManager.Remove(this);
                 }
             }
 

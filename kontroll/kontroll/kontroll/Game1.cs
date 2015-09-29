@@ -11,10 +11,19 @@ using Microsoft.Xna.Framework.Media;
 
 namespace kontroll
 {
+    public enum MenuState { start, game }
+
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        MenuState menuState;
+
+        KeyboardState keyboard;
+        KeyboardState prevKeyboard;
+
+        SpriteFont spriteFont;
         
         public Game1()
         {
@@ -26,10 +35,14 @@ namespace kontroll
         {
             base.Initialize();
             AssetManager.Load(Content);
-            GameObjectManager.add(new Player());
-            GameObjectManager.add(new PowerUp(new Vector2(200, 200), 0));
-            GameObjectManager.add(new Drone(new Vector2(0, 0), 1, -180));
-            GameObjectManager.add(new Drone(new Vector2(0, 0), 2, 0));
+            GameObjectManager.Add(new Player());
+            GameObjectManager.Add(new PowerUp(new Vector2(200, 200), 0));
+            GameObjectManager.Add(new Drone(new Vector2(0, 0), 1, -180));
+            GameObjectManager.Add(new Drone(new Vector2(0, 0), 2, 0));
+
+            menuState = MenuState.start;
+
+            spriteFont = Content.Load<SpriteFont>("SpriteFont20");
         }
 
         protected override void LoadContent()
@@ -47,20 +60,51 @@ namespace kontroll
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
 
-            GameObjectManager.Update();
+            prevKeyboard = keyboard;
+            keyboard = Keyboard.GetState();
 
-            Random random = new Random();
+            if (menuState == MenuState.start)
+            {
+                if (keyboard.IsKeyDown(Keys.Enter))
+                {
+                    menuState = MenuState.game;
+                }
+            }
+
+            if (menuState == MenuState.game)
+            {
+                GameObjectManager.Update();
+
+                // Star
+                if (Globals.Randomizer.Next(0, 101) < 5)
+                {
+                    GameObjectManager.Add(new Star());
+                }
+            }
 
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin(SpriteSortMode.FrontToBack, null);
-            foreach (GameObject g in GameObjectManager.gameObjects)
+            if (menuState == MenuState.start)
             {
-                g.Draw(spriteBatch);
+                spriteBatch.DrawString(spriteFont, "Press enter to start or escape to quit", new Vector2(100, 200), Color.White);
+            }
+
+            if (menuState == MenuState.game)
+            {
+                if (keyboard.IsKeyDown(Keys.P))
+                {
+                    menuState = MenuState.start;
+                }
+
+                foreach (GameObject g in GameObjectManager.gameObjects)
+                {
+                    g.Draw(spriteBatch);
+                } 
             }
             spriteBatch.End();
             base.Draw(gameTime);
