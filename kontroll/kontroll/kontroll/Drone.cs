@@ -31,6 +31,8 @@ namespace kontroll
             Speed = 0.2f;
             this.Depth = 0.5f;
 
+            gunType = 1;
+
             Texture = AssetManager.spritesheet;
         }
 
@@ -67,14 +69,7 @@ namespace kontroll
 
             foreach(Player p in GameObjectManager.gameObjects.Where(item => item is Player))
             {
-                if (Tag == 1)
-                {
-                    Position = new Vector2(Globals.Lerp(Position.X, p.Position.X - MAX_DISTANCE, Speed),Globals.Lerp(Position.Y, p.Position.Y, Speed));
-                }
-                else
-                {
-                    Position = new Vector2(Globals.Lerp(Position.X, p.Position.X + MAX_DISTANCE, Speed), Globals.Lerp(Position.Y, p.Position.Y, Speed));
-                }
+                Position = new Vector2(Globals.Lerp(Position.X, p.Position.X + MAX_DISTANCE * Tag, Speed), Globals.Lerp(Position.Y, p.Position.Y, Speed));
             }
         }
 
@@ -88,6 +83,12 @@ namespace kontroll
                 {
                     case 0:
                         tmp = 16;
+                        break;
+                    case 2:
+                        tmp = 32;
+                        break;
+                    case 3:
+                        tmp = 48;
                         break;
                 }
 

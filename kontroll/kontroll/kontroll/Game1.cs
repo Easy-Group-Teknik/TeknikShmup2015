@@ -35,6 +35,7 @@ namespace kontroll
         {
             base.Initialize();
             AssetManager.Load(Content);
+<<<<<<< HEAD
             GameObjectManager.Add(new Player());
             GameObjectManager.Add(new PowerUp(new Vector2(200, 200), 0));
             GameObjectManager.Add(new Drone(new Vector2(0, 0), 1, -180));
@@ -43,6 +44,12 @@ namespace kontroll
             menuState = MenuState.start;
 
             spriteFont = Content.Load<SpriteFont>("SpriteFont20");
+=======
+            GameObjectManager.add(new Player());
+            GameObjectManager.add(new PowerUp(new Vector2(200, 200), 0));
+            GameObjectManager.add(new Drone(new Vector2(0, 0), 1, 0));
+            GameObjectManager.add(new Drone(new Vector2(0, 0), -1, -180));
+>>>>>>> origin/master
         }
 
         protected override void LoadContent()
