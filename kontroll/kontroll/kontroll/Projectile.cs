@@ -8,7 +8,7 @@ namespace kontroll
 {
     abstract class Projectile : GameObject
     {
-        public int Damage { private get; set; }
+        public int Damage { get; set; }
 
         public bool enemy;
 

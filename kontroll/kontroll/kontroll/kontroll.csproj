@@ -96,7 +96,6 @@
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
@@ -113,6 +112,7 @@
   <ItemGroup>
     <Compile Include="AssetManager.cs" />
     <Compile Include="Drone.cs" />
+    <Compile Include="Enemy.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GameObjectManager.cs" />
     <Compile Include="Globals.cs" />

@@ -32,6 +32,8 @@ namespace kontroll
             SpriteCoords = new Point(1, 1);
             Position = new Vector2(400, 400);
 
+            GunType = 2;
+
             Speed = 5;
             Depth = 0.5f;
         }
