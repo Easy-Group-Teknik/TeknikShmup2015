@@ -65,7 +65,7 @@ namespace kontroll
             {
                 foreach (Drone d in GameObjectManager.gameObjects.Where(item => item is Drone))
                 {
-                    if (d.Tag == 1)
+                    if (d.Tag == -1)
                     {
                         d.Shoot();
                     }
@@ -76,7 +76,7 @@ namespace kontroll
             {
                 foreach (Drone d in GameObjectManager.gameObjects.Where(item => item is Drone))
                 {
-                    if (d.Tag == 2)
+                    if (d.Tag == 1)
                     {
                         d.Shoot();
                     }

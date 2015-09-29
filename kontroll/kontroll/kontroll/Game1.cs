@@ -28,8 +28,8 @@ namespace kontroll
             AssetManager.Load(Content);
             GameObjectManager.add(new Player());
             GameObjectManager.add(new PowerUp(new Vector2(200, 200), 0));
-            GameObjectManager.add(new Drone(new Vector2(0, 0), 1, -180));
-            GameObjectManager.add(new Drone(new Vector2(0, 0), 2, 0));
+            GameObjectManager.add(new Drone(new Vector2(0, 0), 1, 0));
+            GameObjectManager.add(new Drone(new Vector2(0, 0), -1, -180));
         }
 
         protected override void LoadContent()
