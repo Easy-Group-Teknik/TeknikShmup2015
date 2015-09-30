@@ -39,11 +39,35 @@ namespace kontroll
             {
                 if (p.Hitbox.Intersects(Hitbox))
                 {
-                    p.GunType = type + 1;
+                    if(type != 4) p.GunType = type + 1;
+                    else
+                    {
+                        if (GameObjectManager.gameObjects.Where(item => item is Drone).Count() == 0)
+                        {
+                            GameObjectManager.Add(new Drone(new Vector2(0, 0), -1, -180));
+                        }
+                        else if (GameObjectManager.gameObjects.Where(item => item is Drone).Count() == 1)
+                        {
+                            GameObjectManager.Add(new Drone(new Vector2(0, 0), 1, 0));
+                        }
+                        else
+                        {
+                            p.GunType = 1;
+                        }
+                    }
                     GameObjectManager.Remove(this);
                 }
             }
 
+            foreach (Drone d in GameObjectManager.gameObjects.Where(item => item is Drone))
+            {
+                if (d.Hitbox.Intersects(Hitbox))
+                {
+                    if (type != 4) d.GunType = type + 1;
+                    else d.GunType = type + 1;
+                    GameObjectManager.Remove(this);
+                }
+            }
             base.Update();
         }
 

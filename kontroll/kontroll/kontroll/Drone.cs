@@ -13,7 +13,7 @@ namespace kontroll
         public int Tag { get; private set; }
 
         private int fireRate;
-        private int gunType;
+        public int GunType { private get; set; }
 
         private float shootAngle;
 
@@ -31,7 +31,7 @@ namespace kontroll
             Speed = 0.2f;
             this.Depth = 0.5f;
 
-            gunType = 1;
+            GunType = 0;
 
             Texture = AssetManager.spritesheet;
         }
@@ -40,7 +40,7 @@ namespace kontroll
         {
             if (fireRate <= 0)
             {
-                switch (gunType)
+                switch (GunType)
                 {
                     case 0: 
                         GameObjectManager.Add(new SimpleProjectile(Position, shootAngle, 7, Color.Blue, SimpleProjectile.Pattern.Straight, false));
@@ -79,7 +79,7 @@ namespace kontroll
             {
                 int tmp = 0;
 
-                switch (gunType)
+                switch (GunType)
                 {
                     case 0:
                         tmp = 16;

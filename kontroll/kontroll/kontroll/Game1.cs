@@ -36,9 +36,10 @@ namespace kontroll
             base.Initialize();
             AssetManager.Load(Content);
             GameObjectManager.Add(new Player());
-            GameObjectManager.Add(new PowerUp(new Vector2(200, 200), 0));
-            GameObjectManager.Add(new Drone(new Vector2(0, 0), -1, -180));
-            GameObjectManager.Add(new Drone(new Vector2(0, 0), 1, 0));
+            GameObjectManager.Add(new PowerUp(new Vector2(200, 0), 4));
+            GameObjectManager.Add(new PowerUp(new Vector2(400, 0), 4));
+            //GameObjectManager.Add(new Drone(new Vector2(0, 0), -1, -180));
+            //GameObjectManager.Add(new Drone(new Vector2(0, 0), 1, 0));
 
             menuState = MenuState.start;
 

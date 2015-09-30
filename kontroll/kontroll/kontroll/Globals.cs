@@ -18,6 +18,13 @@ namespace kontroll
             thread.Abort();
         }
 
+        public static void Beep()
+        {
+            Thread thread = new Thread(new ThreadStart(Console.Beep));
+            thread.Start();
+            thread.Abort();
+        }
+
         public static float DegreesToRadian(float degree)
         {
             return degree * (float)Math.PI / 180;
