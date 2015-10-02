@@ -10,14 +10,14 @@ namespace kontroll
     {
         public const int MAX_HITCOUNT = 8;
 
-        public int MaxHealth { private get; set; }
+        public int MaxHealth { get; set; }
         public int Health { get; set; }
         public int FireRate { get; set; }
         public int MaxFireRate { get; set; }
         public int ShootIntervall { get; set; }
         public int BurstSize { get; set; }
 
-        public Projectile projectile { get; set; }
+        public Projectile Projectile { get; set; }
 
         private int hitCount;
 
@@ -39,7 +39,7 @@ namespace kontroll
             {
                 if (p.Hitbox.Intersects(Hitbox) && !p.enemy)
                 {
-                    if (invisible)
+                    if (!invisible && hitCount <= 0)
                     {
                         Health -= p.Damage;
                         hitCount = 1;
@@ -60,7 +60,7 @@ namespace kontroll
             {
                 if (BurstSize == 0)
                 {
-                    GameObjectManager.Add(projectile);
+                    GameObjectManager.Add(Projectile);
                 }
                 FireRate = 0;
             }
@@ -71,7 +71,7 @@ namespace kontroll
                 {
                     if (FireRate == MaxFireRate - i * ShootIntervall)
                     {
-                        GameObjectManager.Add(projectile);
+                        GameObjectManager.Add(Projectile);
                     }
                 }
             }
@@ -81,7 +81,7 @@ namespace kontroll
         {
             if (Health <= 0)
             {
-                // TODO: add effect eller
+                GameObjectManager.Add(new Explosion(Position));
                 GameObjectManager.Remove(this);
             }
 
@@ -91,7 +91,11 @@ namespace kontroll
                 hitCount += 1;
             }
 
-            hitCount = (hitCount >= MAX_HITCOUNT) ? 0 : hitCount;
+            if (hitCount >= MAX_HITCOUNT)
+            {
+                Color = Color.White;
+                hitCount = 0;
+            }
         }
     }
 }

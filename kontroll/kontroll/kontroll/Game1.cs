@@ -38,6 +38,7 @@ namespace kontroll
             GameObjectManager.Add(new Player());
             GameObjectManager.Add(new PowerUp(new Vector2(200, 0), 4));
             GameObjectManager.Add(new PowerUp(new Vector2(400, 0), 4));
+            GameObjectManager.Add(new Ship(new Vector2(100, 100), 0, 3, 128));
             //GameObjectManager.Add(new Drone(new Vector2(0, 0), -1, -180));
             //GameObjectManager.Add(new Drone(new Vector2(0, 0), 1, 0));
 
@@ -88,7 +89,7 @@ namespace kontroll
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(new Color(50, 50, 50));
             spriteBatch.Begin(SpriteSortMode.FrontToBack, null);
             if (menuState == MenuState.start)
             {

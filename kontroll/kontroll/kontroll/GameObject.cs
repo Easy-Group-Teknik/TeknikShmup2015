@@ -25,6 +25,12 @@ namespace kontroll
         public float Scale { get; set; }
         public float Depth { get; set; }
 
+        public int AnimationCount { get; set; }
+        public int MaxAnimationCount { get; set; }
+        public int CurrentFrame { get; set; }
+        public int MinFrame { get; set; }
+        public int MaxFrame { get; set; }
+
         public Color Color { get; set; }
 
         public Texture2D Texture { get; set; }
@@ -40,6 +46,18 @@ namespace kontroll
         public virtual void Update()
         {
 
+        }
+
+        public void Animate()
+        {
+            AnimationCount += 1;
+
+            if (AnimationCount >= MaxAnimationCount)
+            {
+                CurrentFrame += 1;
+                if (CurrentFrame >= MaxFrame) CurrentFrame = MinFrame;
+                AnimationCount = 0;
+            }
         }
 
         public int Frame(int cell, int size)

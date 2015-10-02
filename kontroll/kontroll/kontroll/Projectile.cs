@@ -19,6 +19,8 @@ namespace kontroll
             this.Speed = speed;
             this.enemy = enemy;
 
+            this.Damage = 1;
+
             Texture = AssetManager.spritesheet;
 
             Scale = 1f;

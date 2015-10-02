@@ -114,6 +114,7 @@
     <Compile Include="AssetManager.cs" />
     <Compile Include="Drone.cs" />
     <Compile Include="Enemy.cs" />
+    <Compile Include="Explosion.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GameObjectManager.cs" />
     <Compile Include="Globals.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Rocket.cs" />
+    <Compile Include="Ship.cs" />
     <Compile Include="SimpleProjectile.cs" />
     <Compile Include="Star.cs" />
   </ItemGroup>
