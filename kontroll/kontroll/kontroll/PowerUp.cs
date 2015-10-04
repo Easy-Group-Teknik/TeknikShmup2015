@@ -61,10 +61,9 @@ namespace kontroll
 
             foreach (Drone d in GameObjectManager.gameObjects.Where(item => item is Drone))
             {
-                if (d.Hitbox.Intersects(Hitbox))
+                if (d.Hitbox.Intersects(Hitbox) && type != 4)
                 {
-                    if (type != 4) d.GunType = type + 1;
-                    else d.GunType = type + 1;
+                    d.GunType = type + 1;
                     GameObjectManager.Remove(this);
                 }
             }

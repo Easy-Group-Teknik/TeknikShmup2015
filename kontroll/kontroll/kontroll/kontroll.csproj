@@ -118,6 +118,7 @@
     <Compile Include="GameObject.cs" />
     <Compile Include="GameObjectManager.cs" />
     <Compile Include="Globals.cs" />
+    <Compile Include="Laser.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PowerUp.cs" />
     <Compile Include="Projectile.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="Rocket.cs" />
     <Compile Include="Ship.cs" />
     <Compile Include="SimpleProjectile.cs" />
+    <Compile Include="SpawnManager.cs" />
     <Compile Include="Star.cs" />
   </ItemGroup>
   <ItemGroup>

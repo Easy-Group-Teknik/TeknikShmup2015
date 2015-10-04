@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using Microsoft.Xna.Framework;
 
 namespace kontroll
 {
@@ -23,6 +24,11 @@ namespace kontroll
             Thread thread = new Thread(new ThreadStart(Console.Beep));
             thread.Start();
             thread.Abort();
+        }
+
+        public static float DistanceTo(Vector2 target, Vector2 target2)
+        {
+            return (float)Math.Sqrt((target.X - target2.X) * (target.X - target2.X) + (target.Y - target2.Y) * (target.Y - target2.Y));
         }
 
         public static float DegreesToRadian(float degree)

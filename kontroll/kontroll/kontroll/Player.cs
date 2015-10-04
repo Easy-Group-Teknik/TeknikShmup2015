@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace kontroll
 {
@@ -23,6 +24,10 @@ namespace kontroll
         private int fireRate;
 
         public int GunType { get; set; }
+
+        public bool dead;
+
+        public Laser laser;
 
         public Player()
             : base()
@@ -114,6 +119,10 @@ namespace kontroll
         {
             Input();
 
+            if(laser != null) laser.Update();
+
+            //laser = new Laser(Position, Vector2.Zero, new Color(Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255)), false);
+
             fireRate = (fireRate >= MaxFireRate) ? 0 : fireRate;
             fireRate = (fireRate >= 1) ? fireRate + 1 : fireRate;
 
@@ -135,6 +144,12 @@ namespace kontroll
 
                 return tmp;
             }
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+            if(laser != null) laser.Draw(spriteBatch);
         }
     }
 }

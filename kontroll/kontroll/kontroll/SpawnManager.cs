@@ -50,7 +50,7 @@ namespace kontroll
                     switch (i)
                     {
                         case 0:
-                            GameObjectManager.Add(new Ship(GetSpawnPosition(side), ))
+                         //   GameObjectManager.Add(new Ship(GetSpawnPosition(side), spawnAngle, glo))
                             break;
                     }
                     enemySpawnCounts[i] = 0;
