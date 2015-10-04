@@ -46,13 +46,13 @@ namespace kontroll
         public bool Intersects(Rectangle hitbox)
         {
             float distance = Globals.DistanceTo(Position, Target);
-            float angle = (float)Math.Atan2(Position.Y - Target.Y, Position.X - Target.X);
+            float angle = (float)Math.Atan2(Target.Y - Position.Y, Target.X - Position.X);
             
             Vector2 laserPoint;
 
             for (int i = 0; i < distance; i++)
             {
-                laserPoint = new Vector2((float)Math.Cos(angle) * i, (float)Math.Sin(angle) * i);
+                laserPoint = new Vector2(Position.X + (float)Math.Cos(angle) * i, Position.Y + (float)Math.Sin(angle) * i);
                 if(new Rectangle((int)laserPoint.X, (int)laserPoint.Y, 2, 2).Intersects(hitbox))
                 {
                     return true;
@@ -65,11 +65,11 @@ namespace kontroll
         public void Draw(SpriteBatch spriteBatch)
         {
             float distance = Globals.DistanceTo(Position, Target);
-            float angle = (float)Math.Atan2(Position.Y - Target.Y, Position.X - Target.X);
+            float angle = (float)Math.Atan2(Target.Y - Position.Y, Target.X - Position.X);
 
             for (int i = 0; i < distance; i++)
             {
-                spriteBatch.Draw(AssetManager.spritesheet, new Vector2((float)Math.Cos(angle) * i, (float)Math.Sin(angle) * i), new Rectangle(43, 1, 2, 2), color, 0, Vector2.Zero, 1, SpriteEffects.None, 0.5f);
+                spriteBatch.Draw(AssetManager.spritesheet, Position + new Vector2((float)Math.Cos(angle) * i, (float)Math.Sin(angle) * i), new Rectangle(43, 1, 2, 2), color, 0, Vector2.Zero, 1, SpriteEffects.None, 0.5f);
             }
         }
     }

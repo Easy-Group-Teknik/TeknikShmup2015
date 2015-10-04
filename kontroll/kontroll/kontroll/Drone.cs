@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace kontroll
 {
@@ -16,6 +17,8 @@ namespace kontroll
         public int GunType { private get; set; }
 
         private float shootAngle;
+
+        private Laser laser;
 
         public Drone(Vector2 position, int tag, float shootAngle)
             : base()
@@ -31,7 +34,7 @@ namespace kontroll
             Speed = 0.2f;
             this.Depth = 0.5f;
 
-            GunType = 0;
+            GunType = 3;
 
             Texture = AssetManager.spritesheet;
         }
@@ -71,6 +74,17 @@ namespace kontroll
             {
                 Position = new Vector2(Globals.Lerp(Position.X, p.Position.X + MAX_DISTANCE * Tag, Speed), Globals.Lerp(Position.Y, p.Position.Y, Speed));
             }
+
+            if (laser != null) laser.Update();
+
+            if (fireRate >= 1 && fireRate <= MaxFireRate / 4 && GunType == 3)
+            {
+                laser = new Laser(Position, Position + new Vector2((float)Math.Cos(shootAngle) * 300, (float)Math.Sin(shootAngle) * 300), new Color(Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255)), true);
+            }
+            else
+            {
+                laser = null;
+            }
         }
 
         public int MaxFireRate
@@ -88,12 +102,18 @@ namespace kontroll
                         tmp = 32;
                         break;
                     case 3:
-                        tmp = 48;
+                        tmp = 64;
                         break;
                 }
 
                 return tmp;
             }
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+            if(laser != null) laser.Draw(spriteBatch);
         }
     }
 }

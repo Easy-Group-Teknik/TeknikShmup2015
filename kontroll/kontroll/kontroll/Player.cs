@@ -37,10 +37,10 @@ namespace kontroll
             SpriteCoords = new Point(1, 1);
             Position = new Vector2(400, 400);
 
-            GunType = 2;
+            GunType = 3;
 
             Speed = 5;
-            Depth = 0.5f;
+            Depth = 0.6f;
         }
 
         public void Input()
@@ -126,6 +126,15 @@ namespace kontroll
             fireRate = (fireRate >= MaxFireRate) ? 0 : fireRate;
             fireRate = (fireRate >= 1) ? fireRate + 1 : fireRate;
 
+            if (fireRate >= 1 && fireRate <= MaxFireRate / 4 && GunType == 3)
+            {
+                laser = new Laser(Position, Position + new Vector2(0, -300), new Color(Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255)), true);
+            }
+            else
+            {
+                laser = null;
+            }
+
             base.Update();
         }
 
@@ -139,6 +148,9 @@ namespace kontroll
                 {
                     case 0:
                         tmp = 16;
+                        break;
+                    case 3:
+                        tmp = 64;
                         break;
                 }
 
