@@ -10,6 +10,8 @@ namespace kontroll
 {
     class Player : GameObject
     {
+        private const int MAX_RESPAWN_COUNT = 128;
+
         private KeyboardState keyboard;
         private KeyboardState prevKeyboard;
 
@@ -21,9 +23,15 @@ namespace kontroll
         private Keys leftTrigger = Keys.A;
         private Keys rightTrigger = Keys.S;
 
+        private int respawnCount;
+
+        public int Score { get; set; }
+
         private int fireRate;
 
         public int GunType { get; set; }
+
+        public int Lives { get; set; }
 
         public bool dead;
 
@@ -37,7 +45,10 @@ namespace kontroll
             SpriteCoords = new Point(1, 1);
             Position = new Vector2(400, 400);
 
-            GunType = 3;
+            Lives = 3;
+            dead = false;
+
+            Globals.gameOver = false;
 
             Speed = 5;
             Depth = 0.6f;
@@ -78,7 +89,7 @@ namespace kontroll
                     }
                 }
             }
-
+            
             if (keyboard.IsKeyDown(rightTrigger) && prevKeyboard.IsKeyUp(rightTrigger))
             {
                 foreach (Drone d in GameObjectManager.gameObjects.Where(item => item is Drone))
@@ -117,7 +128,27 @@ namespace kontroll
 
         public override void Update()
         {
-            Input();
+            if(!dead) Input();
+
+            if (dead)
+            {
+                respawnCount += 1;
+
+                Position = new Vector2(Position.X, Globals.Lerp(Position.Y, 520, 0.04f));
+
+                if (respawnCount >= MAX_RESPAWN_COUNT && Lives > 0)
+                {
+                    dead = false;
+                    GunType = 0;
+                    respawnCount = 0;
+
+                    Lives -= 1;
+
+                    Position = new Vector2(400, 240);
+                }
+            }
+
+            Globals.gameOver = (Lives <= 0);
 
             if(laser != null) laser.Update();
 

@@ -28,6 +28,8 @@ namespace kontroll
             this.MaxFireRate = maxFireRate;
             ShootIntervall = 8;
             BurstSize = 4;
+
+            Worth = 500;
         }
 
         public override void Update()

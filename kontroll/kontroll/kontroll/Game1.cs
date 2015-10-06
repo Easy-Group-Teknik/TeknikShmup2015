@@ -23,8 +23,9 @@ namespace kontroll
         KeyboardState keyboard;
         KeyboardState prevKeyboard;
 
-        SpriteFont spriteFont;
-        
+        SpawnManager spawnManager = new SpawnManager();
+        UserInterface userInterface = new UserInterface();
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -41,10 +42,9 @@ namespace kontroll
             GameObjectManager.Add(new Ship(new Vector2(300, 100), 0, 3, 128));
             //GameObjectManager.Add(new Drone(new Vector2(0, 0), -1, -180));
             //GameObjectManager.Add(new Drone(new Vector2(0, 0), 1, 0));
-
+            Globals.gameOver = true;
             menuState = MenuState.start;
-
-            spriteFont = Content.Load<SpriteFont>("SpriteFont20");
+            userInterface = new UserInterface();
         }
 
         protected override void LoadContent()
@@ -72,7 +72,7 @@ namespace kontroll
                     menuState = MenuState.game;
                 }
             }
-
+            
             if (menuState == MenuState.game)
             {
                 GameObjectManager.Update();
@@ -82,6 +82,15 @@ namespace kontroll
                 {
                     GameObjectManager.Add(new Star());
                 }
+
+                if (Globals.gameOver && keyboard.IsKeyDown(Keys.Space))
+                {
+                    GameObjectManager.gameObjects.Clear();
+                    GameObjectManager.Add(new Player());
+                }
+
+                spawnManager.Update();
+                userInterface.Update();
             }
 
             base.Update(gameTime);
@@ -89,11 +98,11 @@ namespace kontroll
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(new Color(50, 50, 50));
+            GraphicsDevice.Clear(new Color(10, 10, 10));
             spriteBatch.Begin(SpriteSortMode.FrontToBack, null);
             if (menuState == MenuState.start)
             {
-                spriteBatch.DrawString(spriteFont, "Press enter to start or escape to quit", new Vector2(100, 200), Color.White);
+                spriteBatch.DrawString(AssetManager.spriteFont, "Press enter to start or escape to quit", new Vector2(100, 200), Color.White);
             }
 
             if (menuState == MenuState.game)
@@ -108,6 +117,10 @@ namespace kontroll
                     g.Draw(spriteBatch);
                 } 
             }
+            spriteBatch.End();
+
+            spriteBatch.Begin();
+            userInterface.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }

@@ -12,6 +12,8 @@ namespace kontroll
         private static Random r;
         public static Random Randomizer { get { if (r == null) r = new Random(); return r; } }
 
+        public static bool gameOver;
+
         public static void Beep(int frequency, int duration)
         {
             Thread thread = new Thread(new ThreadStart(() => Console.Beep(frequency, duration)));

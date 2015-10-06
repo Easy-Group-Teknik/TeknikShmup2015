@@ -11,9 +11,12 @@ namespace kontroll
     {
         static public Texture2D spritesheet;
 
+        static public SpriteFont spriteFont;
+
         static public void Load(ContentManager content)
         {
             spritesheet = content.Load<Texture2D>("spritesheet");
+            spriteFont = content.Load<SpriteFont>("SpriteFont20");
         }
     }
 }

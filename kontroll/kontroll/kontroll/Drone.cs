@@ -79,7 +79,7 @@ namespace kontroll
 
             if (fireRate >= 1 && fireRate <= MaxFireRate / 4 && GunType == 3)
             {
-                laser = new Laser(Position, Position + new Vector2((float)Math.Cos(shootAngle) * 300, (float)Math.Sin(shootAngle) * 300), new Color(Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255)), true);
+                laser = new Laser(Position, Position + new Vector2((float)Math.Cos(shootAngle) * 800, (float)Math.Sin(shootAngle) * 800), new Color(Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255)), true);
             }
             else
             {

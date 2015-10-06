@@ -16,6 +16,7 @@ namespace kontroll
         public int MaxFireRate { get; set; }
         public int ShootIntervall { get; set; }
         public int BurstSize { get; set; }
+        public int Worth { get; set; }
 
         public Projectile Projectile { get; set; }
 
@@ -56,6 +57,8 @@ namespace kontroll
         {
             FireRate += 1;
 
+            if (Position.Y >= 480 + SpriteSize.Y) GameObjectManager.Remove(this);
+
             if (FireRate >= MaxFireRate)
             {
                 if (BurstSize == 0)
@@ -82,6 +85,10 @@ namespace kontroll
             if (Health <= 0)
             {
                 GameObjectManager.Add(new Explosion(Position));
+                foreach (Player p in GameObjectManager.gameObjects.Where(item => item is Player))
+                {
+                    p.Score += Worth;
+                }
                 GameObjectManager.Remove(this);
             }
 

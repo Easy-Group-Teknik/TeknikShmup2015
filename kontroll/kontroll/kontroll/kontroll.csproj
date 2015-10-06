@@ -130,6 +130,7 @@
     <Compile Include="SimpleProjectile.cs" />
     <Compile Include="SpawnManager.cs" />
     <Compile Include="Star.cs" />
+    <Compile Include="UserInterface.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

@@ -17,7 +17,7 @@ namespace kontroll
         {
             get
             {
-                return currentLevel * 128;
+                return currentLevel * 128*2;
             }
         }
 
@@ -30,6 +30,8 @@ namespace kontroll
         {
             enemySpawnCounts = new int[AMOUNT_OF_ENEMIES];
             maxEnemySpawnCounts = new int[AMOUNT_OF_ENEMIES];
+
+            maxEnemySpawnCounts[0] = 128;
         }
 
         public void EnemySpawnUpdate()
@@ -44,13 +46,13 @@ namespace kontroll
                     
                     float spawnAngle = Globals.DegreesToRadian(-270);
 
-                    if(side == 1) spawnAngle = Globals.DegreesToRadian(-180);
-                    else if(side == 2) spawnAngle = 0;
+                    if(side == 2) spawnAngle = Globals.DegreesToRadian(-180);
+                    else if(side == 1) spawnAngle = 0;
 
                     switch (i)
                     {
                         case 0:
-                         //   GameObjectManager.Add(new Ship(GetSpawnPosition(side), spawnAngle, glo))
+                            GameObjectManager.Add(new Ship(GetSpawnPosition(side), spawnAngle, Globals.Randomizer.Next(2, 5), Globals.Randomizer.Next(64, 128)));
                             break;
                     }
                     enemySpawnCounts[i] = 0;
@@ -70,6 +72,8 @@ namespace kontroll
                 currentLevel += 1;
                 nextLevelCount = 0;
             }
+
+            EnemySpawnUpdate();
         }
 
         public Vector2 GetSpawnPosition(int side)
@@ -79,13 +83,13 @@ namespace kontroll
             switch (side)
             {
                 case 0:
-                    tmp = new Vector2(Globals.Randomizer.Next(Globals.Randomizer.Next(16, 800 - 16)), Globals.Randomizer.Next(-100, -500));
+                    tmp = new Vector2(Globals.Randomizer.Next(16, 800 - 16), Globals.Randomizer.Next(-500, -100));
                     break;
                 case 1:
-                    tmp = new Vector2(Globals.Randomizer.Next(Globals.Randomizer.Next(-100, -500), Globals.Randomizer.Next(16, 480 - 16)));
+                    tmp = new Vector2(Globals.Randomizer.Next(-500, -200), Globals.Randomizer.Next(16, 480 - 16));
                     break;
                 case 2:
-                    tmp = new Vector2(Globals.Randomizer.Next(Globals.Randomizer.Next(100, 500), Globals.Randomizer.Next(16, 480 - 16)));
+                    tmp = new Vector2(Globals.Randomizer.Next(800 + 200, 800 + 500), Globals.Randomizer.Next(16, 480 - 16));
                     break;
             }
 
