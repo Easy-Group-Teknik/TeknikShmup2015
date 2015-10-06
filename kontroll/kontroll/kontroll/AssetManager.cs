@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace kontroll
 {
@@ -13,10 +14,15 @@ namespace kontroll
 
         static public SpriteFont spriteFont;
 
-        static public void Load(ContentManager content)
+        static public Texture2D pixel;
+
+        static public void Load(ContentManager content, GraphicsDevice graphicsDevice)
         {
             spritesheet = content.Load<Texture2D>("spritesheet");
             spriteFont = content.Load<SpriteFont>("SpriteFont20");
+
+            pixel = new Texture2D(graphicsDevice, 1, 1);
+            pixel.SetData<Color>(new Color[] { Color.White });
         }
     }
 }

@@ -11,9 +11,12 @@ namespace kontroll
     {
         private float displayScore;
 
+        private Texture2D deathFade;
+        private float deathFadeOpacity;
+
         public UserInterface()
         {
-            
+            this.deathFade = AssetManager.pixel;
         }
 
         public void Update()
@@ -38,7 +41,9 @@ namespace kontroll
                     }
                     else
                     {
-                        spriteBatch.DrawString(AssetManager.spriteFont, "GAME OVER!", new Vector2(400, 220), Color.Red, 0, new Vector2(AssetManager.spriteFont.MeasureString("GAME OVER!").X / 2, 0), 1, SpriteEffects.None, 1);
+                        deathFadeOpacity = (float)Globals.Randomizer.NextDouble();
+                        spriteBatch.Draw(deathFade, new Rectangle(0, 0, 800, 480), null, Color.Red * deathFadeOpacity, 0f, new Vector2(0, 0), SpriteEffects.None, 0);
+                        spriteBatch.DrawString(AssetManager.spriteFont, "GAME OVER!", new Vector2(400, 220), Color.Black, 0, new Vector2(AssetManager.spriteFont.MeasureString("GAME OVER!").X / 2, 0), 1, SpriteEffects.None, 1);
                     }
                 }
             }

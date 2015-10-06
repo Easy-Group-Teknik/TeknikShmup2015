@@ -103,6 +103,8 @@ namespace kontroll
 
             if (keyboard.IsKeyDown(fire) && fireRate <= 0)
             {
+                Lives = 0;
+                dead = true;
                 if (GunType == 0 && prevKeyboard.IsKeyUp(fire))
                 {
                     GameObjectManager.Add(new SimpleProjectile(Position, -(float)Math.PI / 2, Speed + 3, Color.Blue, SimpleProjectile.Pattern.Straight, false));

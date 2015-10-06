@@ -35,7 +35,7 @@ namespace kontroll
         protected override void Initialize()
         {
             base.Initialize();
-            AssetManager.Load(Content);
+            AssetManager.Load(Content, GraphicsDevice);
             GameObjectManager.Add(new Player());
             GameObjectManager.Add(new PowerUp(new Vector2(200, 0), 4));
             GameObjectManager.Add(new PowerUp(new Vector2(400, 0), 4));
@@ -77,16 +77,16 @@ namespace kontroll
             {
                 GameObjectManager.Update();
 
-                // Star
-                if (Globals.Randomizer.Next(0, 101) < 5)
-                {
-                    GameObjectManager.Add(new Star());
-                }
-
                 if (Globals.gameOver && keyboard.IsKeyDown(Keys.Space))
                 {
                     GameObjectManager.gameObjects.Clear();
                     GameObjectManager.Add(new Player());
+                }
+
+                // Star
+                if (Globals.Randomizer.Next(0, 101) < 5)
+                {
+                    GameObjectManager.Add(new Star());
                 }
 
                 spawnManager.Update();
