@@ -24,6 +24,7 @@ namespace kontroll
         private Keys rightTrigger = Keys.S;
 
         private int respawnCount;
+        private int invisibleCount;
 
         public int Score { get; set; }
 
@@ -103,11 +104,9 @@ namespace kontroll
 
             if (keyboard.IsKeyDown(fire) && fireRate <= 0)
             {
-                Lives = 0;
-                dead = true;
                 if (GunType == 0 && prevKeyboard.IsKeyUp(fire))
                 {
-                    GameObjectManager.Add(new SimpleProjectile(Position, -(float)Math.PI / 2, Speed + 3, Color.Blue, SimpleProjectile.Pattern.Straight, false));
+                    GameObjectManager.Add(new SimpleProjectile(Position, -(float)Math.PI / 2, Speed + 5, Color.Blue, SimpleProjectile.Pattern.Straight, false));
                 }
 
                 if (GunType == 1 && prevKeyboard.IsKeyUp(fire))
@@ -136,7 +135,10 @@ namespace kontroll
             {
                 respawnCount += 1;
 
-                Position = new Vector2(Position.X, Globals.Lerp(Position.Y, 520, 0.04f));
+                if(respawnCount % 16 == 0)
+                GameObjectManager.Add(new Explosion(Position));
+
+                Position = new Vector2(Position.X, Globals.Lerp(Position.Y, 620, 0.04f));
 
                 if (respawnCount >= MAX_RESPAWN_COUNT && Lives > 0)
                 {
@@ -144,6 +146,7 @@ namespace kontroll
                     GunType = 0;
                     respawnCount = 0;
 
+                    invisibleCount = 1;
                     Lives -= 1;
 
                     Position = new Vector2(400, 240);
@@ -151,6 +154,24 @@ namespace kontroll
             }
 
             Globals.gameOver = (Lives <= 0);
+
+            foreach (Enemy e in GameObjectManager.gameObjects.Where(item => item is Enemy))
+            {
+                if (e.Hitbox.Intersects(Hitbox)) 
+                {
+                    e.Health = 0;
+                    if(invisibleCount <= 0) dead = true;
+                }
+            }
+
+            foreach(Projectile p in GameObjectManager.gameObjects.Where(item => item is Projectile))
+            {
+                if (p.Hitbox.Intersects(Hitbox) && p.enemy)
+                {
+                    GameObjectManager.Remove(p);
+                    if (invisibleCount <= 0) dead = true;
+                }
+            }
 
             if(laser != null) laser.Update();
 
@@ -168,6 +189,12 @@ namespace kontroll
                 laser = null;
             }
 
+            if (invisibleCount >= 1)
+            {
+                invisibleCount += 1;
+                if (invisibleCount >= 128) invisibleCount = 0;
+            }
+
             base.Update();
         }
 
@@ -180,7 +207,7 @@ namespace kontroll
                 switch (GunType)
                 {
                     case 0:
-                        tmp = 16;
+                        tmp = 4;
                         break;
                     case 3:
                         tmp = 64;
@@ -195,6 +222,7 @@ namespace kontroll
         {
             base.Draw(spriteBatch);
             if(laser != null) laser.Draw(spriteBatch);
+            if(invisibleCount > 0) spriteBatch.Draw(AssetManager.spritesheet, Position, new Rectangle(1, 232, 32, 32), Color.White, 0, new Vector2(16, 16), 1, SpriteEffects.None, Depth+0.1f);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace kontroll
             SpriteCoords = new Point(1, Frame(2, 32));
             SpriteSize = new Point(32, 32);
 
-            MaxHealth = 3;
+            MaxHealth = 1;
             Health = MaxHealth;
 
             this.MaxFireRate = maxFireRate;

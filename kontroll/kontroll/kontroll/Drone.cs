@@ -18,6 +18,8 @@ namespace kontroll
 
         private float shootAngle;
 
+        public bool dead;
+
         private Laser laser;
 
         public Drone(Vector2 position, int tag, float shootAngle)
@@ -33,8 +35,6 @@ namespace kontroll
 
             Speed = 0.2f;
             this.Depth = 0.5f;
-
-            GunType = 3;
 
             Texture = AssetManager.spritesheet;
         }
@@ -70,9 +70,34 @@ namespace kontroll
             fireRate = (fireRate >= 1) ? fireRate + 1 : 0;
             fireRate = (fireRate >= MaxFireRate) ? 0 : fireRate;
 
+            foreach (Enemy e in GameObjectManager.gameObjects.Where(item => item is Enemy))
+            {
+                if (e.Hitbox.Intersects(Hitbox))
+                {
+                    e.Health = 0;
+                    dead = true;
+                }
+            }
+
+            foreach (Projectile p in GameObjectManager.gameObjects.Where(item => item is Projectile))
+            {
+                if (p.Hitbox.Intersects(Hitbox) && p.enemy)
+                {
+                    GameObjectManager.Remove(p);
+                    dead = true;
+                }
+            }
+
             foreach(Player p in GameObjectManager.gameObjects.Where(item => item is Player))
             {
+                if (p.dead) dead = p.dead;
                 Position = new Vector2(Globals.Lerp(Position.X, p.Position.X + MAX_DISTANCE * Tag, Speed), Globals.Lerp(Position.Y, p.Position.Y, Speed));
+            }
+
+            if (dead)
+            {
+                GameObjectManager.Add(new Explosion(Position));
+                GameObjectManager.Remove(this);
             }
 
             if (laser != null) laser.Update();
