@@ -13,6 +13,16 @@ namespace kontroll
         private int currentLevel;
         private int nextLevelCount;
 
+        private int spawnPowerUpCount;
+
+        public int MaxSpawnPowerUpCount
+        {
+            get
+            {
+                return currentLevel * 128;
+            }
+        }
+
         public int MaxNextLevelCount
         {
             get
@@ -32,6 +42,17 @@ namespace kontroll
             maxEnemySpawnCounts = new int[AMOUNT_OF_ENEMIES];
 
             maxEnemySpawnCounts[0] = 128;
+        }
+
+        public void PowerupSpawnUpdate()
+        {
+            spawnPowerUpCount += 1;
+
+            if (spawnPowerUpCount >= MaxSpawnPowerUpCount)
+            {
+                GameObjectManager.Add(new PowerUp(new Vector2(Globals.Randomizer.Next(16, 800 - 16), Globals.Randomizer.Next(-300, -100)), Globals.Randomizer.Next(0, 5)));
+                spawnPowerUpCount = 0;
+            }
         }
 
         public void EnemySpawnUpdate()
@@ -73,6 +94,7 @@ namespace kontroll
                 nextLevelCount = 0;
             }
 
+            PowerupSpawnUpdate();
             EnemySpawnUpdate();
         }
 
