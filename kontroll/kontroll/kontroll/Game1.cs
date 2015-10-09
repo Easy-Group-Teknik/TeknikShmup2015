@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
+using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -35,6 +37,7 @@ namespace kontroll
         protected override void Initialize()
         {
             base.Initialize();
+            CreateHighScoreFile();
             AssetManager.Load(Content, GraphicsDevice);
             GameObjectManager.Add(new Player());
             GameObjectManager.Add(new PowerUp(new Vector2(200, 0), 4));
@@ -45,6 +48,17 @@ namespace kontroll
             Globals.gameOver = true;
             menuState = MenuState.start;
             userInterface = new UserInterface();
+        }
+
+        public void CreateHighScoreFile()
+        {
+            if (!File.Exists("highscore.hi"))
+            {
+                File.Create("highscore.hi").Dispose();
+                StreamWriter sw = new StreamWriter("highscore.hi");
+                sw.Write("100000");
+                sw.Dispose();
+            }
         }
 
         protected override void LoadContent()

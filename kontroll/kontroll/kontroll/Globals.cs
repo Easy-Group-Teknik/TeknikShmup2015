@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.IO;
 using Microsoft.Xna.Framework;
 
 namespace kontroll
@@ -13,6 +14,31 @@ namespace kontroll
         public static Random Randomizer { get { if (r == null) r = new Random(); return r; } }
 
         public static bool gameOver;
+
+        public static int Highscore
+        {
+            get
+            {
+                int highscore;
+
+                StreamReader sr = new StreamReader("highscore.hi");
+                highscore = int.Parse(sr.ReadLine());
+                sr.Dispose();
+
+                foreach (Player p in GameObjectManager.gameObjects.Where(item => item is Player))
+                {
+                    if (p.Score > highscore)
+                    {
+                        highscore = p.Score;
+
+                        StreamWriter sw = new StreamWriter("highscore.hi");
+                        sw.WriteLine(p.Score);
+                        sw.Dispose();
+                    }
+                }
+                return highscore;
+            }
+        }
 
         public static void Beep(int frequency, int duration)
         {

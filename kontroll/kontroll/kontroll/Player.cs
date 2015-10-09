@@ -46,7 +46,7 @@ namespace kontroll
             SpriteCoords = new Point(1, 1);
             Position = new Vector2(400, 400);
 
-            Lives = 3;
+            Lives = 0;
             dead = false;
 
             Globals.gameOver = false;
