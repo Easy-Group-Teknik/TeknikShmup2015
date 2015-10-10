@@ -106,7 +106,10 @@ namespace kontroll
                 spawnManager.Update();
                 userInterface.Update();
             }
-
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                GameObjectManager.Add(new Bomber(new Vector2(0, 0), 0, 1));
+            }
             base.Update(gameTime);
         }
 
