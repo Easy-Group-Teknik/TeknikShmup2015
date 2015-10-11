@@ -17,6 +17,8 @@ namespace kontroll
         public UserInterface()
         {
             this.deathFade = AssetManager.pixel;
+            this.deathFadeOpacity = 0;
+            this.displayScore = 0;
         }
 
         public void Update()

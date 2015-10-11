@@ -8,7 +8,7 @@ namespace kontroll
 {
     class SpawnManager
     {
-        const int AMOUNT_OF_ENEMIES = 3;
+        const int AMOUNT_OF_ENEMIES = 2;
 
         private int currentLevel;
         private int nextLevelCount;
@@ -42,6 +42,10 @@ namespace kontroll
             maxEnemySpawnCounts = new int[AMOUNT_OF_ENEMIES];
 
             maxEnemySpawnCounts[0] = 128;
+            maxEnemySpawnCounts[1] = 128*2;
+
+            currentLevel = 0;
+            nextLevelCount = 0;
         }
 
         public void PowerupSpawnUpdate()
@@ -74,6 +78,10 @@ namespace kontroll
                     {
                         case 0:
                             GameObjectManager.Add(new Ship(GetSpawnPosition(side), spawnAngle, Globals.Randomizer.Next(2, 5), Globals.Randomizer.Next(64, 128)));
+                            break;
+                        case 1:
+                            if (currentLevel >= 3)
+                                GameObjectManager.Add(new Bomber(new Vector2(Globals.Randomizer.Next(-500, -100), Globals.Randomizer.Next(16, 480 - 16)), 0, Globals.Randomizer.Next(2, 6)));
                             break;
                     }
                     enemySpawnCounts[i] = 0;

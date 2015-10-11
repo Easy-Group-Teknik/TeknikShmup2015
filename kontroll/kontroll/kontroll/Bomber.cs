@@ -23,7 +23,7 @@ namespace kontroll
             MaxHealth = 1;
             Health = MaxHealth;
 
-            this.MaxFireRate = 48;
+            this.MaxFireRate = 32;
 
             Worth = 1000;
         }

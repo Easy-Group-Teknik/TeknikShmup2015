@@ -40,12 +40,12 @@ namespace kontroll
             CreateHighScoreFile();
             AssetManager.Load(Content, GraphicsDevice);
             GameObjectManager.Add(new Player());
-            GameObjectManager.Add(new PowerUp(new Vector2(200, 0), 4));
-            GameObjectManager.Add(new PowerUp(new Vector2(400, 0), 4));
-            GameObjectManager.Add(new Ship(new Vector2(300, 100), 0, 3, 128));
+            //GameObjectManager.Add(new PowerUp(new Vector2(200, 0), 4));
+            //GameObjectManager.Add(new PowerUp(new Vector2(400, 0), 4));
+           // GameObjectManager.Add(new Ship(new Vector2(300, 100), 0, 3, 128));
             //GameObjectManager.Add(new Drone(new Vector2(0, 0), -1, -180));
             //GameObjectManager.Add(new Drone(new Vector2(0, 0), 1, 0));
-            Globals.gameOver = true;
+            //Globals.gameOver = true;
             menuState = MenuState.start;
             userInterface = new UserInterface();
         }
@@ -95,6 +95,8 @@ namespace kontroll
                 {
                     GameObjectManager.gameObjects.Clear();
                     GameObjectManager.Add(new Player());
+                    spawnManager = new SpawnManager();
+                    userInterface = new UserInterface();
                 }
 
                 // Star
@@ -105,10 +107,6 @@ namespace kontroll
 
                 spawnManager.Update();
                 userInterface.Update();
-            }
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
-            {
-                GameObjectManager.Add(new Bomber(new Vector2(0, 0), 0, 1));
             }
             base.Update(gameTime);
         }
