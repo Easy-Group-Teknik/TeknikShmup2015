@@ -31,6 +31,7 @@ namespace kontroll
         private int fireRate;
 
         public int GunType { get; set; }
+        public Action gunType;
 
         public int Lives { get; set; }
 
@@ -50,6 +51,8 @@ namespace kontroll
             dead = false;
 
             Globals.gameOver = false;
+
+            gunType = () => Globals.SimpelShot(this, this.Speed+4, -(float)Math.PI/2);
 
             Speed = 5;
             Depth = 0.6f;
@@ -102,27 +105,9 @@ namespace kontroll
                 }
             }
 
-            if (keyboard.IsKeyDown(fire) && fireRate <= 0)
+            if (keyboard.IsKeyDown(fire) && !prevKeyboard.IsKeyDown(fire) && fireRate <= 0)
             {
-                if (GunType == 0 && prevKeyboard.IsKeyUp(fire))
-                {
-                    GameObjectManager.Add(new SimpleProjectile(Position, -(float)Math.PI / 2, Speed + 5, Color.Blue, SimpleProjectile.Pattern.Straight, false));
-                }
-
-                if (GunType == 1 && prevKeyboard.IsKeyUp(fire))
-                {
-                    for (int i = -1; i < 2; i++)
-                    {
-                        float angle = (-90 + i * 25) * (float)Math.PI/180;
-                        GameObjectManager.Add(new SimpleProjectile(Position, angle, Speed + 3, Color.Blue, SimpleProjectile.Pattern.Straight, false));
-                    }
-                }
-
-                if (GunType == 2 && prevKeyboard.IsKeyUp(fire))
-                {
-                    GameObjectManager.Add(new Rocket(Position, -(float)Math.PI / 2, 0, -0.2f, Rocket.Type.Slowing, Vector2.Zero, false));
-                }
-
+                gunType();
                 fireRate = 1;
             }
         }

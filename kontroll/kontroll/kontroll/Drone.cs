@@ -15,6 +15,7 @@ namespace kontroll
 
         private int fireRate;
         public int GunType { private get; set; }
+        public Action gunType;
 
         private float shootAngle;
 
@@ -36,6 +37,8 @@ namespace kontroll
             Speed = 0.2f;
             this.Depth = 0.5f;
 
+            gunType = () => Globals.SimpelShot(this, 7, this.shootAngle);
+
             Texture = AssetManager.spritesheet;
         }
 
@@ -43,22 +46,7 @@ namespace kontroll
         {
             if (fireRate <= 0)
             {
-                switch (GunType)
-                {
-                    case 0: 
-                        GameObjectManager.Add(new SimpleProjectile(Position, shootAngle, 7, Color.Blue, SimpleProjectile.Pattern.Straight, false));
-                        break;
-                    case 1:
-                        for (int i = -1; i < 2; i++)
-                        {
-                            float angle = (Globals.RadianToDegree(shootAngle) + i * 25) * (float)Math.PI / 180;
-                            GameObjectManager.Add(new SimpleProjectile(Position, angle, 7, Color.Blue, SimpleProjectile.Pattern.Straight, false));
-                        }
-                        break;
-                    case 2:
-                        GameObjectManager.Add(new Rocket(Position, shootAngle, 0, -0.2f, Rocket.Type.Slowing, Vector2.Zero, false));
-                        break;
-                }
+                gunType();
                 fireRate = 1;
             }
         }
@@ -68,7 +56,7 @@ namespace kontroll
             base.Update();
 
             fireRate = (fireRate >= 1) ? fireRate + 1 : 0;
-            fireRate = (fireRate >= MaxFireRate) ? 0 : fireRate;
+            fireRate = (fireRate >= 0) ? 0 : fireRate;
 
             foreach (Enemy e in GameObjectManager.gameObjects.Where(item => item is Enemy))
             {
@@ -102,36 +90,13 @@ namespace kontroll
 
             if (laser != null) laser.Update();
 
-            if (fireRate >= 1 && fireRate <= MaxFireRate / 4 && GunType == 3)
+            if (fireRate >= 1 && fireRate <= 128 / 4 && GunType == 3)
             {
                 laser = new Laser(Position, Position + new Vector2((float)Math.Cos(shootAngle) * 800, (float)Math.Sin(shootAngle) * 800), new Color(Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255)), true);
             }
             else
             {
                 laser = null;
-            }
-        }
-
-        public int MaxFireRate
-        {
-            get
-            {
-                int tmp = 0;
-
-                switch (GunType)
-                {
-                    case 0:
-                        tmp = 16;
-                        break;
-                    case 2:
-                        tmp = 32;
-                        break;
-                    case 3:
-                        tmp = 64;
-                        break;
-                }
-
-                return tmp;
             }
         }
 
