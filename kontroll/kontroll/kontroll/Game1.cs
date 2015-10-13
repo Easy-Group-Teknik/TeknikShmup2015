@@ -40,8 +40,8 @@ namespace kontroll
             CreateHighScoreFile();
             AssetManager.Load(Content, GraphicsDevice);
             GameObjectManager.Add(new Player());
-            GameObjectManager.Add(new PowerUp(new Vector2(200, 0), 4));
-            GameObjectManager.Add(new PowerUp(new Vector2(400, 0), 4));
+            //GameObjectManager.Add(new PowerUp(new Vector2(200, 0), 4));
+            //GameObjectManager.Add(new PowerUp(new Vector2(400, 0), 4));
            // GameObjectManager.Add(new Ship(new Vector2(300, 100), 0, 3, 128));
             //GameObjectManager.Add(new Drone(new Vector2(0, 0), -1, -180));
             //GameObjectManager.Add(new Drone(new Vector2(0, 0), 1, 0));

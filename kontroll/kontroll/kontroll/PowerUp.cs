@@ -13,11 +13,11 @@ namespace kontroll
 
         private float sinCount;
 
-        public PowerUp(Vector2 position, int type)
+        public PowerUp(Vector2 position)
             : base()
         {
             this.Position = position;
-            this.type = type;
+            this.type = Globals.Randomizer.Next(0, 5);
 
             SpriteCoords = new Point(34, 34);
             SpriteSize = new Point(24, 16);
@@ -39,7 +39,7 @@ namespace kontroll
             {
                 if (p.Hitbox.Intersects(Hitbox))
                 {
-                    if(type != 4) p.GunType = type + 1;
+                    if(type != 4) p.gunType = GetGunType(type+1, p, p.Speed+4, Globals.DegreesToRadian(-90));
                     else
                     {
                         if (GameObjectManager.gameObjects.Where(item => item is Drone).Count() == 0)
@@ -52,7 +52,7 @@ namespace kontroll
                         }
                         else
                         {
-                            p.GunType = 1;
+                            p.gunType = GetGunType(1, p, p.Speed + 4, Globals.DegreesToRadian(-90));
                         }
                     }
                     GameObjectManager.Remove(this);
@@ -63,7 +63,7 @@ namespace kontroll
             {
                 if (d.Hitbox.Intersects(Hitbox) && type != 4)
                 {
-                    d.GunType = type + 1;
+                    d.gunType = GetGunType(type + 1, d, Speed + 4, d.ShootAngle);
                     GameObjectManager.Remove(this);
                 }
             }
@@ -74,6 +74,13 @@ namespace kontroll
         {
             base.Draw(spriteBatch);
             spriteBatch.Draw(Texture, Position, new Rectangle(66+Frame(type, 24), 34, 24, 16), Color.White, 0, new Vector2(12, 8), 1, SpriteEffects.None, Depth+0.1f);
+        }
+
+        public Action GetGunType(int gunType, GameObject g, float speed, float angle)
+        {
+            Action[] gunTypes = new Action[5] { () => Globals.SimpelShot(g, speed, angle), () => Globals.ShotgunShot(g, speed, angle), () => Globals.RocketShot(g, speed, angle), () => Globals.RocketShot(g, speed, angle), () => Globals.SimpelShot(g, speed, angle) };
+
+            return gunTypes[gunType];
         }
     }
 }

@@ -15,9 +15,9 @@ namespace kontroll
 
         private int fireRate;
         public int GunType { private get; set; }
-        public Action gunType;
+        public Action gunType { get; set; }
 
-        private float shootAngle;
+        public float ShootAngle { get; set; }
 
         public bool dead;
 
@@ -29,7 +29,7 @@ namespace kontroll
             this.Position = position;
             this.Tag = tag;
 
-            this.shootAngle = Globals.DegreesToRadian(shootAngle);
+            this.ShootAngle = Globals.DegreesToRadian(shootAngle);
 
             SpriteCoords = new Point(1, Frame(1, 32));
             SpriteSize = new Point(24, 24);
@@ -37,7 +37,7 @@ namespace kontroll
             Speed = 0.2f;
             this.Depth = 0.5f;
 
-            gunType = () => Globals.SimpelShot(this, 7, this.shootAngle);
+            gunType = () => Globals.SimpelShot(this, 7, this.ShootAngle);
 
             Texture = AssetManager.spritesheet;
         }
@@ -92,7 +92,7 @@ namespace kontroll
 
             if (fireRate >= 1 && fireRate <= 128 / 4 && GunType == 3)
             {
-                laser = new Laser(Position, Position + new Vector2((float)Math.Cos(shootAngle) * 800, (float)Math.Sin(shootAngle) * 800), new Color(Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255)), true);
+                laser = new Laser(Position, Position + new Vector2((float)Math.Cos(ShootAngle) * 800, (float)Math.Sin(ShootAngle) * 800), new Color(Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255)), true);
             }
             else
             {

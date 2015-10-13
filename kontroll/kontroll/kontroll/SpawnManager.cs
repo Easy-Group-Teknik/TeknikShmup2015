@@ -54,7 +54,7 @@ namespace kontroll
 
             if (spawnPowerUpCount >= MaxSpawnPowerUpCount)
             {
-                GameObjectManager.Add(new PowerUp(new Vector2(Globals.Randomizer.Next(16, 800 - 16), Globals.Randomizer.Next(-300, -100)), Globals.Randomizer.Next(0, 5)));
+                GameObjectManager.Add(new PowerUp(new Vector2(Globals.Randomizer.Next(16, 800 - 16), Globals.Randomizer.Next(-300, -100))));
                 spawnPowerUpCount = 0;
             }
         }

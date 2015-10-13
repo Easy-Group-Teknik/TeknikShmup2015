@@ -49,7 +49,7 @@ namespace kontroll
         {
             for (int i = -1; i < 2; i++)
             {
-                float tmp = (-90 + i * 25) * (float)Math.PI / 180;
+                float tmp = (i * 25) * (float)Math.PI / 180;
                 GameObjectManager.Add(new SimpleProjectile(g.Position, tmp+angle, g.Speed + 3, Color.Blue, SimpleProjectile.Pattern.Straight, false));
             }
         }
