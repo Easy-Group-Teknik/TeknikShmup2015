@@ -39,7 +39,11 @@ namespace kontroll
             {
                 if (p.Hitbox.Intersects(Hitbox))
                 {
-                    if(type != 4) p.gunType = GetGunType(type+1, p, p.Speed+4, Globals.DegreesToRadian(-90));
+                    if (type != 4)
+                    {
+                        p.gunType = GetGunType(type + 1, p, p.Speed + 4, Globals.DegreesToRadian(-90));
+                        p.MaxFireRate = 16 * (type + 1);
+                    }
                     else
                     {
                         if (GameObjectManager.gameObjects.Where(item => item is Drone).Count() == 0)
@@ -64,6 +68,7 @@ namespace kontroll
                 if (d.Hitbox.Intersects(Hitbox) && type != 4)
                 {
                     d.gunType = GetGunType(type + 1, d, Speed + 4, d.ShootAngle);
+                    d.MaxFireRate = 16 * (type + 1);
                     GameObjectManager.Remove(this);
                 }
             }

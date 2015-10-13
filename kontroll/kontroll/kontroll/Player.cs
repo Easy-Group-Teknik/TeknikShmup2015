@@ -26,6 +26,8 @@ namespace kontroll
         private int respawnCount;
         private int invisibleCount;
 
+        public int MaxFireRate { get; set; }
+
         public int Score { get; set; }
 
         private int fireRate;
@@ -53,6 +55,8 @@ namespace kontroll
             Globals.gameOver = false;
 
             gunType = () => Globals.SimpelShot(this, this.Speed+4, -(float)Math.PI/2);
+
+            MaxFireRate = 16;
 
             Speed = 5;
             Depth = 0.6f;
@@ -181,26 +185,6 @@ namespace kontroll
             }
 
             base.Update();
-        }
-
-        public int MaxFireRate 
-        {
-            get
-            {
-                int tmp = 0;
-
-                switch (GunType)
-                {
-                    case 0:
-                        tmp = 4;
-                        break;
-                    case 3:
-                        tmp = 64;
-                        break;
-                }
-
-                return tmp;
-            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)

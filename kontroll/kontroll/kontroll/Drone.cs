@@ -17,6 +17,8 @@ namespace kontroll
         public int GunType { private get; set; }
         public Action gunType { get; set; }
 
+        public int MaxFireRate { get; set; }
+
         public float ShootAngle { get; set; }
 
         public bool dead;
@@ -56,7 +58,7 @@ namespace kontroll
             base.Update();
 
             fireRate = (fireRate >= 1) ? fireRate + 1 : 0;
-            fireRate = (fireRate >= 0) ? 0 : fireRate;
+            fireRate = (fireRate >= MaxFireRate) ? 0 : fireRate;
 
             foreach (Enemy e in GameObjectManager.gameObjects.Where(item => item is Enemy))
             {
