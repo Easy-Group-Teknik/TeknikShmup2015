@@ -45,6 +45,11 @@ namespace kontroll
             GameObjectManager.Add(new SimpleProjectile(g.Position, angle, speed, Color.Blue, SimpleProjectile.Pattern.Straight, false));
         }
 
+        static public void LaserShot()
+        {
+
+        }
+
         static public void ShotgunShot(GameObject g, float speed, float angle)
         {
             for (int i = -1; i < 2; i++)

@@ -57,6 +57,10 @@ namespace kontroll
         {
             base.Update();
 
+            //gunType = Globals.LaserShot;
+
+            if (gunType == Globals.LaserShot) MaxFireRate = 128;
+
             fireRate = (fireRate >= 1) ? fireRate + 1 : 0;
             fireRate = (fireRate >= MaxFireRate) ? 0 : fireRate;
 
@@ -92,7 +96,7 @@ namespace kontroll
 
             if (laser != null) laser.Update();
 
-            if (fireRate >= 1 && fireRate <= 128 / 4 && GunType == 3)
+            if (fireRate >= 1 && fireRate <= 128 / 4 && gunType == Globals.LaserShot)
             {
                 laser = new Laser(Position, Position + new Vector2((float)Math.Cos(ShootAngle) * 800, (float)Math.Sin(ShootAngle) * 800), new Color(Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255)), true);
             }

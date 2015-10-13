@@ -120,6 +120,10 @@ namespace kontroll
         {
             if(!dead) Input();
 
+            //gunType = Globals.LaserShot;
+
+            if (gunType == Globals.LaserShot) MaxFireRate = 128;
+
             if (dead)
             {
                 respawnCount += 1;
@@ -169,9 +173,9 @@ namespace kontroll
             fireRate = (fireRate >= MaxFireRate) ? 0 : fireRate;
             fireRate = (fireRate >= 1) ? fireRate + 1 : fireRate;
 
-            if (fireRate >= 1 && fireRate <= MaxFireRate / 4 && GunType == 3)
+            if (fireRate >= 1 && fireRate <= MaxFireRate / 4 && gunType == Globals.LaserShot)
             {
-                laser = new Laser(Position, Position + new Vector2(0, -300), new Color(Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255)), true);
+                laser = new Laser(Position, Position + new Vector2(0, -500), new Color(Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255)), true);
             }
             else
             {

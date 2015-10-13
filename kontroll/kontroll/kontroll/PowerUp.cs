@@ -83,7 +83,7 @@ namespace kontroll
 
         public Action GetGunType(int gunType, GameObject g, float speed, float angle)
         {
-            Action[] gunTypes = new Action[5] { () => Globals.SimpelShot(g, speed, angle), () => Globals.ShotgunShot(g, speed, angle), () => Globals.RocketShot(g, speed, angle), () => Globals.RocketShot(g, speed, angle), () => Globals.SimpelShot(g, speed, angle) };
+            Action[] gunTypes = new Action[5] { () => Globals.SimpelShot(g, speed, angle), () => Globals.ShotgunShot(g, speed, angle), () => Globals.RocketShot(g, speed, angle), Globals.LaserShot, () => Globals.SimpelShot(g, speed, angle) };
 
             return gunTypes[gunType];
         }
