@@ -49,7 +49,7 @@ namespace kontroll
             SpriteCoords = new Point(1, 1);
             Position = new Vector2(400, 400);
 
-            Lives = 0;
+            Lives = 3;
             dead = false;
 
             Globals.gameOver = false;

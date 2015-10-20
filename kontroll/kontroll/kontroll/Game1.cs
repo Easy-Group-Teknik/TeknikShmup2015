@@ -73,9 +73,6 @@ namespace kontroll
 
         protected override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                this.Exit();
-
             prevKeyboard = keyboard;
             keyboard = Keyboard.GetState();
 
@@ -97,6 +94,7 @@ namespace kontroll
                     GameObjectManager.Add(new Player());
                     spawnManager = new SpawnManager();
                     userInterface = new UserInterface();
+                    Globals.gameOver = false;
                 }
 
                 // Star

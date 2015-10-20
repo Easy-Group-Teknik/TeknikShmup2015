@@ -43,6 +43,8 @@ namespace kontroll
                     {
                         p.gunType = GetGunType(type + 1, p, p.Speed + 4, Globals.DegreesToRadian(-90));
                         p.MaxFireRate = 16 * (type + 1);
+                        if (type + 1 == 4) p.MaxFireRate = 2;
+                        //Console.WriteLine(type+1);
                     }
                     else
                     {
