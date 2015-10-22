@@ -20,6 +20,10 @@ namespace kontroll
 
         public Projectile Projectile { get; set; }
 
+        public Vector2 border;
+
+        private bool negativeBorder;
+
         private int hitCount;
 
         public float ShootAngle { get; set; }
@@ -50,6 +54,8 @@ namespace kontroll
                 }
             }
 
+            // Spring ner alla gränser eller
+            UpdateBorderCheck();
             CheckHealth();
         }
 
@@ -78,6 +84,43 @@ namespace kontroll
                     }
                 }
             }
+        }
+
+        public void UpdateBorderCheck()
+        {
+            if(negativeBorder)
+            {
+                if (Position.X <= border.X)
+                    GameObjectManager.Remove(this);
+            }
+            else
+            {
+                if (Position.X >= border.X && Position.Y >= border.Y)
+                    GameObjectManager.Remove(this);
+            }
+        }
+
+        public Vector2 RemoveOnSide(float angle)
+        {
+            Vector2 border = Vector2.Zero;
+
+            if (Globals.RadianToDegree(angle) == -180)
+            {
+                border = new Vector2(-SpriteSize.X, 0);
+                negativeBorder = true;
+            }
+            if (Globals.RadianToDegree(angle) == -270)
+            {
+                border = new Vector2(0, 480 + SpriteSize.Y);
+                negativeBorder = false;
+            }
+            if (Globals.RadianToDegree(angle) == 0)
+            {
+                border = new Vector2(800 + SpriteSize.X, 0);
+                negativeBorder = false;
+            }
+
+            return border;
         }
 
         public void CheckHealth()

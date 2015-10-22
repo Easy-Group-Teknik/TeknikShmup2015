@@ -28,7 +28,7 @@ namespace kontroll
             this.MaxFireRate = maxFireRate;
             ShootIntervall = 8;
             BurstSize = 4;
-
+            this.border = RemoveOnSide(this.Angle);
             Worth = 500;
         }
 

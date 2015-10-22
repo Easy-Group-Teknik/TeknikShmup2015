@@ -26,6 +26,8 @@ namespace kontroll
             this.MaxFireRate = 32;
 
             Worth = 1000;
+
+            this.border = RemoveOnSide(this.Angle);
         }
 
         public override void Update()

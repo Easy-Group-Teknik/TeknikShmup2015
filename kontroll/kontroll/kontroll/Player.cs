@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
+using System.Runtime.InteropServices;
 
 namespace kontroll
 {
@@ -40,6 +41,25 @@ namespace kontroll
         public bool dead;
 
         public Laser laser;
+
+        List<string> keys = new List<string>();
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        static extern IntPtr SendMessage(IntPtr hWnd, UInt32 Msg, IntPtr wParam, IntPtr lParam);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+        const int VK_F5 = 0x14;
+        public const Int32 WM_SYSCOMMAND = 0x0112;
+        public const Int32 SC_SCREENSAVE = 0xF020;
+        const UInt32 WM_KEYDOWN = 0x0100;
+        IntPtr capsLock = new IntPtr(0x5B);
+
+        IntPtr handle = FindWindow(null, "kontroll");
 
         public Player()
             : base()
@@ -111,9 +131,13 @@ namespace kontroll
 
             if (keyboard.IsKeyDown(fire) && !prevKeyboard.IsKeyDown(fire) && fireRate <= 0)
             {
+                //SendMessage(this.handle, WM_KEYDOWN, capsLock, handle);
+                SendMessage(this.handle, (UInt32)0x0100, (IntPtr)0x5B, handle);
                 gunType();
                 fireRate = 1;
             }
+            SendMessage(this.handle, (UInt32)0x5B, (IntPtr)0x0100, handle);
+            if (keyboard.IsKeyDown(Keys.Space)) Console.WriteLine("L");
         }
 
         public override void Update()
@@ -123,6 +147,9 @@ namespace kontroll
             //gunType = Globals.LaserShot;
 
             if (gunType == Globals.LaserShot) MaxFireRate = 128;
+
+            //SendMessage(this.handle, (UInt32)(WM_SYSCOMMAND), (IntPtr)SC_SCREENSAVE, handle);
+            //SendMessage(this.handle, (UInt32)(WM_KEYDOWN), (IntPtr)VK_F5, handle);
 
             if (dead)
             {
