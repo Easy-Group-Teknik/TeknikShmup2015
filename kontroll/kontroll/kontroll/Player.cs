@@ -163,7 +163,8 @@ namespace kontroll
                 if (respawnCount >= MAX_RESPAWN_COUNT && Lives > 0)
                 {
                     dead = false;
-                    GunType = 0;
+                    gunType = () => Globals.SimpelShot(this, this.Speed + 4, -(float)Math.PI / 2);
+                    MaxFireRate = 16;
                     respawnCount = 0;
 
                     invisibleCount = 1;

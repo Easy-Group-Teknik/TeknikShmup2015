@@ -99,6 +99,10 @@ namespace kontroll
             if (nextLevelCount >= MaxNextLevelCount)
             {
                 currentLevel += 1;
+                for (int i = 0; i < AMOUNT_OF_ENEMIES; i++)
+                {
+                    maxEnemySpawnCounts[i] -= currentLevel * 5;
+                }
                 nextLevelCount = 0;
             }
 
