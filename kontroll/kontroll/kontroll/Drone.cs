@@ -10,6 +10,7 @@ namespace kontroll
     class Drone : GameObject
     {
         const float MAX_DISTANCE = 32;
+        const int MAX_INSIVSIBLECOUNT = 128;
 
         public int Tag { get; private set; }
 
@@ -18,6 +19,8 @@ namespace kontroll
         public Action gunType { get; set; }
 
         public int MaxFireRate { get; set; }
+
+        private int invsibileCount;
 
         public float ShootAngle { get; set; }
 
@@ -64,12 +67,14 @@ namespace kontroll
             fireRate = (fireRate >= 1) ? fireRate + 1 : 0;
             fireRate = (fireRate >= MaxFireRate) ? 0 : fireRate;
 
+            if(invsibileCount <= MAX_INSIVSIBLECOUNT) invsibileCount += 1;
+
             foreach (Enemy e in GameObjectManager.gameObjects.Where(item => item is Enemy))
             {
                 if (e.Hitbox.Intersects(Hitbox))
                 {
                     e.Health = 0;
-                    dead = true;
+                    if (invsibileCount > MAX_INSIVSIBLECOUNT) dead = true;
                 }
             }
 
@@ -78,7 +83,7 @@ namespace kontroll
                 if (p.Hitbox.Intersects(Hitbox) && p.enemy)
                 {
                     GameObjectManager.Remove(p);
-                    dead = true;
+                    if (invsibileCount > MAX_INSIVSIBLECOUNT) dead = true;
                 }
             }
 
@@ -110,6 +115,7 @@ namespace kontroll
         {
             base.Draw(spriteBatch);
             if(laser != null) laser.Draw(spriteBatch);
+            if (invsibileCount < MAX_INSIVSIBLECOUNT) spriteBatch.Draw(AssetManager.spritesheet, Position, new Rectangle(1, 232, 32, 32), Color.White, 0, new Vector2(16, 16), 1, SpriteEffects.None, Depth + 0.1f);
         }
     }
 }
