@@ -35,6 +35,8 @@ namespace kontroll
 
             Position += new Vector2((float)Math.Sin(sinCount) * 2, Speed);
 
+            if (Position.Y >= 480+32) GameObjectManager.Remove(this);
+
             foreach (Player p in GameObjectManager.gameObjects.Where(item => item is Player))
             {
                 if (p.Hitbox.Intersects(Hitbox))
