@@ -28,8 +28,6 @@ namespace kontroll
 
         public float ShootAngle { get; set; }
 
-        public bool invisible;
-
         public Enemy()
             : base()
         {
@@ -44,7 +42,7 @@ namespace kontroll
             {
                 if (p.Hitbox.Intersects(Hitbox) && !p.enemy)
                 {
-                    if (!invisible && hitCount <= 0)
+                    if (hitCount <= 0)
                     {
                         Health -= p.Damage;
                         hitCount = 1;

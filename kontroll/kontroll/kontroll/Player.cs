@@ -33,7 +33,6 @@ namespace kontroll
 
         private int fireRate;
 
-        public int GunType { get; set; }
         public Action gunType;
 
         public int Lives { get; set; }
@@ -41,8 +40,6 @@ namespace kontroll
         public bool dead;
 
         public Laser laser;
-
-        List<string> keys = new List<string>();
 
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         static extern IntPtr SendMessage(IntPtr hWnd, UInt32 Msg, IntPtr wParam, IntPtr lParam);
