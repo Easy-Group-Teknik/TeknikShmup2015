@@ -8,6 +8,8 @@ namespace kontroll
 {
     class Ship : Enemy
     {
+        private SimpleProjectile.Pattern pattern;
+
         public Ship(Vector2 position, float angle, float speed, int maxFireRate)
             : base()
         {
@@ -30,13 +32,15 @@ namespace kontroll
             BurstSize = 4;
             this.border = RemoveOnSide(this.Angle);
             Worth = 500;
+
+            pattern = SimpleProjectile.RandomPattern;
         }
 
         public override void Update()
         {
             ShootAngle = Rotation;
 
-            Projectile = new SimpleProjectile(Position, ShootAngle, 6, Color.Blue, SimpleProjectile.Pattern.Straight, true);
+            Projectile = new SimpleProjectile(Position, ShootAngle, 6, Color.Blue, pattern, true);
             UpdateShoot();
 
             Position += Velocity;

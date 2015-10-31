@@ -51,5 +51,15 @@ namespace kontroll
 
             base.Update();
         }
+
+        public static Pattern RandomPattern
+        {
+            get
+            {
+                int tmp = Globals.Randomizer.Next(2);
+
+                return (tmp == 0) ? Pattern.Straight : Pattern.Wave;
+            }
+        }
     }
 }
