@@ -54,7 +54,7 @@ namespace kontroll
         public const Int32 WM_SYSCOMMAND = 0x0112;
         public const Int32 SC_SCREENSAVE = 0xF020;
         const UInt32 WM_KEYDOWN = 0x0100;
-        IntPtr capsLock = new IntPtr(0x5B);
+        IntPtr capsLock = new IntPtr(0x14);
 
         IntPtr handle = FindWindow(null, "kontroll");
 
@@ -129,12 +129,11 @@ namespace kontroll
             if (keyboard.IsKeyDown(fire) && !prevKeyboard.IsKeyDown(fire) && fireRate <= 0)
             {
                 //SendMessage(this.handle, WM_KEYDOWN, capsLock, handle);
-                SendMessage(this.handle, (UInt32)0x0100, (IntPtr)0x5B, handle);
+                SendMessage(this.handle, (UInt32)0x0100, (IntPtr)0x14, handle);
                 gunType();
                 fireRate = 1;
             }
-            SendMessage(this.handle, (UInt32)0x5B, (IntPtr)0x0100, handle);
-            if (keyboard.IsKeyDown(Keys.Space)) Console.WriteLine("L");
+            //SendMessage(this.handle, (UInt32)0x5B, (IntPtr)0x0100, handle);
         }
 
         public override void Update()

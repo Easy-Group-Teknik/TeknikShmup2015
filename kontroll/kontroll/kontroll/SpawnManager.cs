@@ -94,7 +94,7 @@ namespace kontroll
             sides = (currentLevel >= 3) ? 1 : sides;
             sides = (currentLevel >= 6) ? 2 : sides;
 
-            nextLevelCount += 1;
+            if (currentLevel <= 5) nextLevelCount += 1;
 
             if (nextLevelCount >= MaxNextLevelCount)
             {
