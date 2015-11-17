@@ -11,6 +11,13 @@ namespace kontroll
 {
     class Player : GameObject
     {
+        public enum LifeKey
+        {
+            CapsLock = 0x14,
+            NumLock = 0x90,
+            ScrollLock = 0x91
+        };
+
         private const int MAX_RESPAWN_COUNT = 128;
 
         private KeyboardState keyboard;
@@ -50,6 +57,16 @@ namespace kontroll
         [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
+        [DllImport("user32.dll")]
+        static extern bool SetKeyboardState(byte[] lpKeyState);
+
+        [DllImport("user32.dll")]
+        static extern void keybd_event(byte bVk, byte bScan, uint dwFlags,
+        UIntPtr dwExtraInfo);
+
+        //[DllImport("user32.dll")]
+        //static extern UInt32 SendInput(UInt32 nInputs, [MarshalAs(UnmanagedType.LPArray, SizeConst = 1)] INPUT[] pInputs, Int32 cbSize);
+
         const int VK_F5 = 0x14;
         public const Int32 WM_SYSCOMMAND = 0x0112;
         public const Int32 SC_SCREENSAVE = 0xF020;
@@ -57,6 +74,11 @@ namespace kontroll
         IntPtr capsLock = new IntPtr(0x14);
 
         IntPtr handle = FindWindow(null, "kontroll");
+
+        public void Activate(LifeKey life)
+        {
+            keybd_event((byte)life, 0x45, 0x0001, (UIntPtr)0);  
+        }
 
         public Player()
             : base()
@@ -68,14 +90,13 @@ namespace kontroll
 
             Lives = 3;
             dead = false;
-
             Globals.gameOver = false;
 
             gunType = () => Globals.SimpelShot(this, this.Speed+4, -(float)Math.PI/2);
 
             MaxFireRate = 16;
 
-            Speed = 5;
+            Speed = 7;
             Depth = 0.6f;
         }
 
@@ -129,7 +150,9 @@ namespace kontroll
             if (keyboard.IsKeyDown(fire) && !prevKeyboard.IsKeyDown(fire) && fireRate <= 0)
             {
                 //SendMessage(this.handle, WM_KEYDOWN, capsLock, handle);
-                SendMessage(this.handle, (UInt32)0x0100, (IntPtr)0x14, handle);
+               // SendMessage(this.handle, (UInt32)WM_KEYDOWN, (IntPtr)capsLock, handle);
+                //keybd_event((byte)LifeKey.CapsLock, 0x45, 0x0001, (UIntPtr)0);  
+                SendMessage(this.handle, (UInt32)(WM_KEYDOWN), (IntPtr)capsLock, (IntPtr)0);
                 gunType();
                 fireRate = 1;
             }
@@ -145,6 +168,7 @@ namespace kontroll
             if (gunType == Globals.LaserShot) MaxFireRate = 128;
 
             //SendMessage(this.handle, (UInt32)(WM_SYSCOMMAND), (IntPtr)SC_SCREENSAVE, handle);
+            //SendMessage(this.handle, (UInt32)(WM_KEYDOWN), (IntPtr)capsLock, handle);
             //SendMessage(this.handle, (UInt32)(WM_KEYDOWN), (IntPtr)VK_F5, handle);
 
             if (dead)
