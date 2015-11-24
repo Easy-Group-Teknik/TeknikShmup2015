@@ -16,6 +16,8 @@ namespace kontroll
             MaxAnimationCount = 4;
             MaxFrame = 5;
 
+            Depth = 1;
+
             SpriteCoords = new Point(1, Frame(6, 32));
             SpriteSize = new Point(32, 32);
             Texture = AssetManager.spritesheet;

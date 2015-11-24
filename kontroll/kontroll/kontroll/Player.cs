@@ -183,8 +183,11 @@ namespace kontroll
             {
                 respawnCount += 1;
 
-                if(respawnCount % 16 == 0)
-                GameObjectManager.Add(new Explosion(Position));
+                if (respawnCount % 2 == 0)
+                {
+                    for (int i = 0; i < 10; i++ )
+                        GameObjectManager.Add(new Explosion(Position + new Vector2(Globals.Randomizer.Next((int)-Orgin.X*2, (int)Orgin.X*2), Globals.Randomizer.Next((int)-Orgin.Y*2, (int)Orgin.Y*2))));
+                }
 
                 Position = new Vector2(Position.X, Globals.Lerp(Position.Y, 620, 0.04f));
 
@@ -257,6 +260,10 @@ namespace kontroll
             base.Draw(spriteBatch);
             if(laser != null) laser.Draw(spriteBatch);
             if(InvisibleCount > 0) spriteBatch.Draw(AssetManager.spritesheet, Position, new Rectangle(1, 232, 32, 32), Color.White, 0, new Vector2(16, 16), 1, SpriteEffects.None, Depth+0.1f);
+            if (dead)
+            {
+                //spriteBatch.Draw(AssetManager.spritesheet, new Rectangle(0, 0, 800, 480), new Rectangle(1, 364, 64, 64), new Color(255, 255, 255), 0, new Vector2(0, 0), SpriteEffects.None, 1);
+            }
         }
     }
 }
