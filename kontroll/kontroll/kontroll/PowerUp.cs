@@ -17,7 +17,7 @@ namespace kontroll
             : base()
         {
             this.Position = position;
-            this.type = Globals.Randomizer.Next(0, 5);
+            this.type = Globals.Randomizer.Next(0, 6);
 
             SpriteCoords = new Point(34, 34);
             SpriteSize = new Point(24, 16);
@@ -41,14 +41,14 @@ namespace kontroll
             {
                 if (p.Hitbox.Intersects(Hitbox))
                 {
-                    if (type != 4)
+                    if (type != 4 && type != 5)
                     {
                         p.gunType = GetGunType(type + 1, p, p.Speed + 4, Globals.DegreesToRadian(-90));
                         p.MaxFireRate = 16 * (type + 1);
                         if (type + 1 == 4) p.MaxFireRate = 2;
                         //Console.WriteLine(type+1);
                     }
-                    else
+                    else if(type == 4)
                     {
                         if (GameObjectManager.gameObjects.Where(item => item is Drone).Count() == 0)
                         {
@@ -62,6 +62,10 @@ namespace kontroll
                         {
                             p.gunType = GetGunType(1, p, p.Speed + 4, Globals.DegreesToRadian(-90));
                         }
+                    }
+                    else
+                    {
+                        p.InvisibleCount = 1;
                     }
                     GameObjectManager.Remove(this);
                 }

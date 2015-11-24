@@ -19,7 +19,7 @@ namespace kontroll
         static public void Load(ContentManager content, GraphicsDevice graphicsDevice)
         {
             spritesheet = content.Load<Texture2D>("spritesheet");
-            spriteFont = content.Load<SpriteFont>("SpriteFont20");
+            spriteFont = content.Load<SpriteFont>("bitmapFont");
 
             pixel = new Texture2D(graphicsDevice, 1, 1);
             pixel.SetData<Color>(new Color[] { Color.White });

@@ -33,7 +33,7 @@ namespace kontroll
         private Keys rightTrigger = Keys.S;
 
         private int respawnCount;
-        private int invisibleCount;
+        public int InvisibleCount { private get; set; }
 
         public int MaxFireRate { get; set; }
 
@@ -195,7 +195,7 @@ namespace kontroll
                     MaxFireRate = 16;
                     respawnCount = 0;
 
-                    invisibleCount = 1;
+                    InvisibleCount = 128*4;
                     Lives -= 1;
 
                     Position = new Vector2(400, 240);
@@ -209,7 +209,7 @@ namespace kontroll
                 if (e.Hitbox.Intersects(Hitbox)) 
                 {
                     e.Health = 0;
-                    if(invisibleCount <= 0) dead = true;
+                    if(InvisibleCount <= 0) dead = true;
                 }
             }
 
@@ -218,13 +218,11 @@ namespace kontroll
                 if (p.Hitbox.Intersects(Hitbox) && p.enemy)
                 {
                     GameObjectManager.Remove(p);
-                    if (invisibleCount <= 0) dead = true;
+                    if (InvisibleCount <= 0) dead = true;
                 }
             }
 
             if(laser != null) laser.Update();
-
-            //laser = new Laser(Position, Vector2.Zero, new Color(Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255), Globals.Randomizer.Next(0, 255)), false);
 
             fireRate = (fireRate >= MaxFireRate) ? 0 : fireRate;
             fireRate = (fireRate >= 1) ? fireRate + 1 : fireRate;
@@ -238,10 +236,10 @@ namespace kontroll
                 laser = null;
             }
 
-            if (invisibleCount >= 1)
+            if (InvisibleCount >= 1)
             {
-                invisibleCount += 1;
-                if (invisibleCount >= 128) invisibleCount = 0;
+                InvisibleCount += 1;
+                if (InvisibleCount >= 128*5) InvisibleCount = 0;
             }
 
             base.Update();
@@ -258,7 +256,7 @@ namespace kontroll
         {
             base.Draw(spriteBatch);
             if(laser != null) laser.Draw(spriteBatch);
-            if(invisibleCount > 0) spriteBatch.Draw(AssetManager.spritesheet, Position, new Rectangle(1, 232, 32, 32), Color.White, 0, new Vector2(16, 16), 1, SpriteEffects.None, Depth+0.1f);
+            if(InvisibleCount > 0) spriteBatch.Draw(AssetManager.spritesheet, Position, new Rectangle(1, 232, 32, 32), Color.White, 0, new Vector2(16, 16), 1, SpriteEffects.None, Depth+0.1f);
         }
     }
 }
