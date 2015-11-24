@@ -125,7 +125,7 @@ namespace kontroll
 
             if (keyboard.IsKeyDown(down) && Position.Y <= 480 - Orgin.Y)
             {
-                Position += new Vector2(0, Speed);
+                //Position += new Vector2(0, Speed);
             }
 
             if (keyboard.IsKeyDown(leftTrigger) && prevKeyboard.IsKeyUp(leftTrigger))
@@ -241,7 +241,7 @@ namespace kontroll
                 InvisibleCount += 1;
                 if (InvisibleCount >= 128*5) InvisibleCount = 0;
             }
-
+            //Activate(LifeKey.ScrollLock);
             base.Update();
         }
 

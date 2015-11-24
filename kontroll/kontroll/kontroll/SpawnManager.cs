@@ -8,7 +8,7 @@ namespace kontroll
 {
     class SpawnManager
     {
-        const int AMOUNT_OF_ENEMIES = 2;
+        const int AMOUNT_OF_ENEMIES = 3;
 
         private int currentLevel;
         private int nextLevelCount;
@@ -43,6 +43,7 @@ namespace kontroll
 
             maxEnemySpawnCounts[0] = 128;
             maxEnemySpawnCounts[1] = 128*2;
+            maxEnemySpawnCounts[2] = 128 * 5;
 
             currentLevel = 0;
             nextLevelCount = 0;
@@ -82,6 +83,10 @@ namespace kontroll
                         case 1:
                             if (currentLevel >= 3)
                                 GameObjectManager.Add(new Bomber(new Vector2(Globals.Randomizer.Next(-500, -100), Globals.Randomizer.Next(16, 480 - 16)), 0, Globals.Randomizer.Next(2, 6)));
+                            break;
+                        case 2:
+                            if (currentLevel >= 4)
+                                GameObjectManager.Add(new BigRobot(new Vector2(Globals.Randomizer.Next(0, 800), Globals.Randomizer.Next(-100, -50)), Globals.Randomizer.Next(97, 150)));
                             break;
                     }
                     enemySpawnCounts[i] = 0;

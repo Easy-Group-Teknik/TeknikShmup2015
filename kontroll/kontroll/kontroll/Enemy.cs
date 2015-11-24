@@ -23,6 +23,7 @@ namespace kontroll
         public Vector2 border;
 
         private bool negativeBorder;
+        public bool dontCheckBorders;
 
         private int hitCount;
 
@@ -53,7 +54,7 @@ namespace kontroll
             }
 
             // Spring ner alla gränser eller
-            UpdateBorderCheck();
+            if(!dontCheckBorders) UpdateBorderCheck();
             CheckHealth();
         }
 
