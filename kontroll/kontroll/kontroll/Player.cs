@@ -19,6 +19,7 @@ namespace kontroll
         };
 
         private const int MAX_RESPAWN_COUNT = 128;
+        private const float FRICTION = 0.9f;
 
         private KeyboardState keyboard;
         private KeyboardState prevKeyboard;
@@ -47,6 +48,8 @@ namespace kontroll
         public bool dead;
 
         public Laser laser;
+
+        private float velocityY;
 
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         static extern IntPtr SendMessage(IntPtr hWnd, UInt32 Msg, IntPtr wParam, IntPtr lParam);
@@ -92,7 +95,7 @@ namespace kontroll
             dead = false;
             Globals.gameOver = false;
 
-            gunType = () => Globals.SimpelShot(this, this.Speed+4, -(float)Math.PI/2);
+            gunType = () => Globals.SimpelShot(this, this.Speed+4, -(float)Math.PI/2, SimpleProjectile.Pattern.Straight);
 
             MaxFireRate = 16;
 
@@ -152,9 +155,11 @@ namespace kontroll
                 //SendMessage(this.handle, WM_KEYDOWN, capsLock, handle);
                // SendMessage(this.handle, (UInt32)WM_KEYDOWN, (IntPtr)capsLock, handle);
                 //keybd_event((byte)LifeKey.CapsLock, 0x45, 0x0001, (UIntPtr)0);  
+                if (Position.Y < 480 - Orgin.Y) velocityY += 5.3f;
                 SendMessage(this.handle, (UInt32)(WM_KEYDOWN), (IntPtr)capsLock, (IntPtr)0);
                 gunType();
                 fireRate = 1;
+                //Globals.Beep();
             }
             //SendMessage(this.handle, (UInt32)0x5B, (IntPtr)0x0100, handle);
         }
@@ -163,13 +168,16 @@ namespace kontroll
         {
             if(!dead) Input();
 
-            //gunType = Globals.LaserShot;
-
             if (gunType == Globals.LaserShot) MaxFireRate = 128;
 
-            //SendMessage(this.handle, (UInt32)(WM_SYSCOMMAND), (IntPtr)SC_SCREENSAVE, handle);
-            //SendMessage(this.handle, (UInt32)(WM_KEYDOWN), (IntPtr)capsLock, handle);
-            //SendMessage(this.handle, (UInt32)(WM_KEYDOWN), (IntPtr)VK_F5, handle);
+            Position += new Vector2(0, velocityY);
+
+            velocityY *= FRICTION;
+
+            if (Position.Y >= 480 - Orgin.Y)
+            {
+                velocityY = 0;
+            }
 
             if (dead)
             {
@@ -183,7 +191,7 @@ namespace kontroll
                 if (respawnCount >= MAX_RESPAWN_COUNT && Lives > 0)
                 {
                     dead = false;
-                    gunType = () => Globals.SimpelShot(this, this.Speed + 4, -(float)Math.PI / 2);
+                    gunType = () => Globals.SimpelShot(this, this.Speed + 4, -(float)Math.PI / 2, SimpleProjectile.Pattern.Straight);
                     MaxFireRate = 16;
                     respawnCount = 0;
 
@@ -237,6 +245,13 @@ namespace kontroll
             }
 
             base.Update();
+        }
+
+        public void TurnOffLight()
+        {
+            if (Lives == 3) Activate(LifeKey.NumLock);
+            if (Lives == 2) Activate(LifeKey.CapsLock);
+            if (Lives == 1) Activate(LifeKey.ScrollLock);
         }
 
         public override void Draw(SpriteBatch spriteBatch)

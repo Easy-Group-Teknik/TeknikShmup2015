@@ -82,6 +82,11 @@ namespace kontroll
                 {
                     menuState = MenuState.game;
                 }
+
+                if (keyboard.IsKeyDown(Keys.A) && keyboard.IsKeyDown(Keys.S))
+                {
+                    this.Exit();
+                }
             }
             
             if (menuState == MenuState.game)

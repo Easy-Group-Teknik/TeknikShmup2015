@@ -40,7 +40,7 @@ namespace kontroll
         {
             ShootAngle = Rotation;
 
-            Projectile = new SimpleProjectile(Position, ShootAngle, 6, Color.Blue, pattern, true);
+            Projectile = new SimpleProjectile(Position, ShootAngle, 6, Color.Tomato, pattern, true);
             UpdateShoot();
 
             Position += Velocity;

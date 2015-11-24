@@ -40,9 +40,9 @@ namespace kontroll
             }
         }
 
-        static public void SimpelShot(GameObject g, float speed, float angle)
+        static public void SimpelShot(GameObject g, float speed, float angle, SimpleProjectile.Pattern pattern)
         {
-            GameObjectManager.Add(new SimpleProjectile(g.Position, angle, speed, Color.Blue, SimpleProjectile.Pattern.Straight, false));
+            GameObjectManager.Add(new SimpleProjectile(g.Position, angle, speed, Color.LightBlue, pattern, false));
         }
 
         static public void LaserShot()
@@ -55,7 +55,7 @@ namespace kontroll
             for (int i = -1; i < 2; i++)
             {
                 float tmp = (i * 25) * (float)Math.PI / 180;
-                GameObjectManager.Add(new SimpleProjectile(g.Position, tmp+angle, g.Speed + 3, Color.Blue, SimpleProjectile.Pattern.Straight, false));
+                GameObjectManager.Add(new SimpleProjectile(g.Position, tmp + angle, g.Speed + 3, Color.LightBlue, SimpleProjectile.Pattern.Straight, false));
             }
         }
 

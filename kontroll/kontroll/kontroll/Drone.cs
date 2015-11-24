@@ -42,7 +42,7 @@ namespace kontroll
             Speed = 0.2f;
             this.Depth = 0.5f;
 
-            gunType = () => Globals.SimpelShot(this, 7, this.ShootAngle);
+            gunType = () => Globals.SimpelShot(this, 7, this.ShootAngle, SimpleProjectile.Pattern.Wave);
 
             Texture = AssetManager.spritesheet;
         }
