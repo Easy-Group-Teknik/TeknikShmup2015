@@ -75,7 +75,7 @@ namespace kontroll
         public const Int32 SC_SCREENSAVE = 0xF020;
         const UInt32 WM_KEYDOWN = 0x0100;
         IntPtr capsLock = new IntPtr(0x14);
-
+        
         IntPtr handle = FindWindow(null, "kontroll");
 
         public void Activate(LifeKey life)
@@ -83,6 +83,12 @@ namespace kontroll
             keybd_event((byte)life, 0x45, 0x0001, (UIntPtr)0);  
         }
 
+        public void DeActivate(LifeKey life)
+        {
+            keybd_event((byte)life, 0x45, 0x1, (UIntPtr)0);
+            keybd_event((byte)life, 0x45, 0x2, (UIntPtr)0);
+        }
+        
         public Player()
             : base()
         {
@@ -91,7 +97,7 @@ namespace kontroll
             SpriteCoords = new Point(1, 1);
             Position = new Vector2(400, 400);
 
-            Lives = 3;
+            Lives = 4;
             dead = false;
             Globals.gameOver = false;
 
@@ -156,10 +162,11 @@ namespace kontroll
                // SendMessage(this.handle, (UInt32)WM_KEYDOWN, (IntPtr)capsLock, handle);
                 //keybd_event((byte)LifeKey.CapsLock, 0x45, 0x0001, (UIntPtr)0);  
                 if (Position.Y < 480 - Orgin.Y) velocityY += 5.3f;
-                SendMessage(this.handle, (UInt32)(WM_KEYDOWN), (IntPtr)capsLock, (IntPtr)0);
+                //SendMessage(this.handle, (UInt32)(WM_KEYDOWN), (IntPtr)capsLock, (IntPtr)2);
                 gunType();
                 fireRate = 1;
                 //Globals.Beep();
+                DeActivate(LifeKey.CapsLock);
             }
             //SendMessage(this.handle, (UInt32)0x5B, (IntPtr)0x0100, handle);
         }
@@ -244,15 +251,17 @@ namespace kontroll
                 InvisibleCount += 1;
                 if (InvisibleCount >= 128*5) InvisibleCount = 0;
             }
-            //Activate(LifeKey.ScrollLock);
+
+            TurnOffLight();
+
             base.Update();
         }
 
         public void TurnOffLight()
         {
-            if (Lives == 3) Activate(LifeKey.NumLock);
-            if (Lives == 2) Activate(LifeKey.CapsLock);
-            if (Lives == 1) Activate(LifeKey.ScrollLock);
+            if (Lives == 2) Activate(LifeKey.NumLock);
+            if (Lives == 1) Activate(LifeKey.CapsLock);
+            if (Lives == 3) Activate(LifeKey.ScrollLock);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
