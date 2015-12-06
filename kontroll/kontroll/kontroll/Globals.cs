@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.IO;
 using Microsoft.Xna.Framework;
+using System.Windows.Forms;
 
 namespace kontroll
 {
@@ -37,6 +38,16 @@ namespace kontroll
                     }
                 }
                 return highscore;
+            }
+        }
+
+        static public void SetupKeys()
+        {
+            foreach(Player p in GameObjectManager.gameObjects.Where(item => item is Player))
+            {
+                if (!Control.IsKeyLocked(Keys.NumLock)) p.DeActivate(Player.LifeKey.NumLock);
+                if (!Control.IsKeyLocked(Keys.CapsLock)) p.DeActivate(Player.LifeKey.CapsLock);
+                if (!Control.IsKeyLocked(Keys.Scroll)) p.DeActivate(Player.LifeKey.ScrollLock);
             }
         }
 

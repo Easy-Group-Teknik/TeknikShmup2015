@@ -78,12 +78,12 @@ namespace kontroll
 
             if (menuState == MenuState.start)
             {
-                if (keyboard.IsKeyDown(Keys.Enter))
+                if (keyboard.IsKeyDown(Keys.OemBackslash) || keyboard.IsKeyDown(Keys.Enter))
                 {
                     menuState = MenuState.game;
                 }
 
-                if (keyboard.IsKeyDown(Keys.A) && keyboard.IsKeyDown(Keys.S))
+                if (keyboard.IsKeyDown(Keys.Z) && keyboard.IsKeyDown(Keys.OemPeriod))
                 {
                     this.Exit();
                 }
@@ -93,7 +93,7 @@ namespace kontroll
             {
                 GameObjectManager.Update();
 
-                if (Globals.gameOver && keyboard.IsKeyDown(Keys.Space))
+                if (Globals.gameOver && keyboard.IsKeyDown(Keys.X))
                 {
                     GameObjectManager.gameObjects.Clear();
                     GameObjectManager.Add(new Player());

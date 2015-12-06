@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using System.Runtime.InteropServices;
+//using System.Windows.Forms;
 
 namespace kontroll
 {
@@ -24,13 +25,14 @@ namespace kontroll
         private KeyboardState keyboard;
         private KeyboardState prevKeyboard;
 
-        private Keys left = Keys.Left;
-        private Keys right = Keys.Right;
-        private Keys up = Keys.Up;
+        private Keys left = Keys.D1;//9Keys.Left;
+        private Keys right = Keys.D9;//Keys.Right;
+        private Keys up = Keys.D2;
         private Keys down = Keys.Down;
         private Keys fire = Keys.X;
-        private Keys leftTrigger = Keys.A;
-        private Keys rightTrigger = Keys.S;
+        private Keys leftTrigger = Keys.OemPeriod;
+        private Keys rightTrigger = Keys.Z;
+        private Keys start = Keys.OemBackslash;
 
         private int respawnCount;
         public int InvisibleCount { private get; set; }
@@ -46,6 +48,7 @@ namespace kontroll
         public int Lives { get; set; }
 
         public bool dead;
+        public bool hasSetupKeys;
 
         public Laser laser;
 
@@ -88,7 +91,7 @@ namespace kontroll
             keybd_event((byte)life, 0x45, 0x1, (UIntPtr)0);
             keybd_event((byte)life, 0x45, 0x2, (UIntPtr)0);
         }
-        
+
         public Player()
             : base()
         {
@@ -166,7 +169,8 @@ namespace kontroll
                 gunType();
                 fireRate = 1;
                 //Globals.Beep();
-                DeActivate(LifeKey.CapsLock);
+                //DeActivate(LifeKey.ScrollLock);
+                //Activate(LifeKey.ScrollLock);
             }
             //SendMessage(this.handle, (UInt32)0x5B, (IntPtr)0x0100, handle);
         }
@@ -184,6 +188,12 @@ namespace kontroll
             if (Position.Y >= 480 - Orgin.Y)
             {
                 velocityY = 0;
+            }
+
+            if (!hasSetupKeys)
+            {
+                Globals.SetupKeys();
+                hasSetupKeys = true;
             }
 
             if (dead)
@@ -206,6 +216,9 @@ namespace kontroll
                     respawnCount = 0;
 
                     InvisibleCount = 128*4;
+                    if (Lives == 2) DeActivate(LifeKey.NumLock);
+                    if (Lives == 1) DeActivate(LifeKey.CapsLock);
+                    if (Lives == 3) DeActivate(LifeKey.ScrollLock);
                     Lives -= 1;
 
                     Position = new Vector2(400, 240);
@@ -252,16 +265,16 @@ namespace kontroll
                 if (InvisibleCount >= 128*5) InvisibleCount = 0;
             }
 
-            TurnOffLight();
+            //TurnOffLight();
 
             base.Update();
         }
 
         public void TurnOffLight()
         {
-            if (Lives == 2) Activate(LifeKey.NumLock);
-            if (Lives == 1) Activate(LifeKey.CapsLock);
-            if (Lives == 3) Activate(LifeKey.ScrollLock);
+            if (Lives == 2) DeActivate(LifeKey.NumLock);
+            if (Lives == 1) DeActivate(LifeKey.CapsLock);
+            if (Lives == 3) DeActivate(LifeKey.ScrollLock);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
