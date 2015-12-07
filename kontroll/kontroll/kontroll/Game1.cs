@@ -120,7 +120,7 @@ namespace kontroll
             spriteBatch.Begin(SpriteSortMode.FrontToBack, null);
             if (menuState == MenuState.start)
             {
-                spriteBatch.DrawString(AssetManager.spriteFont, "Press enter to start or escape to quit", new Vector2(100, 200), Color.White);
+                spriteBatch.DrawString(AssetManager.spriteFont, "Press start or hold both sholder buttons to quit", new Vector2(100, 200), Color.White);
             }
 
             if (menuState == MenuState.game)

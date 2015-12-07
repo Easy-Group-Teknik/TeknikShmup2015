@@ -100,7 +100,7 @@ namespace kontroll
             SpriteCoords = new Point(1, 1);
             Position = new Vector2(400, 400);
 
-            Lives = 4;
+            Lives = 3;
             dead = false;
             Globals.gameOver = false;
 
@@ -216,8 +216,8 @@ namespace kontroll
                     respawnCount = 0;
 
                     InvisibleCount = 128*4;
-                    if (Lives == 2) DeActivate(LifeKey.NumLock);
-                    if (Lives == 1) DeActivate(LifeKey.CapsLock);
+                    if (Lives == 1) DeActivate(LifeKey.NumLock);
+                    if (Lives == 2) DeActivate(LifeKey.CapsLock);
                     if (Lives == 3) DeActivate(LifeKey.ScrollLock);
                     Lives -= 1;
 
